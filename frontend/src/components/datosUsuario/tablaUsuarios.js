@@ -27,68 +27,68 @@ function TablaUsuarios() {
     {
       label: "Codigo",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Usuario",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Nombre",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Cedula",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Telefono",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Dirección",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Correo",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Rol",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Sucursal",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Estatus",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
 
     {
       label: "Opciones",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
   ];
@@ -192,6 +192,7 @@ function TablaUsuarios() {
           icono: "informacion",
         })
       );
+      selecionarRegistros();
   };
 
   const deleteUser = async (id) => {
@@ -221,6 +222,7 @@ function TablaUsuarios() {
           icono: "informacion",
         })
       );
+      selecionarRegistros();
   };
   const cambiarEstatus = async (id, estatus) => {
     var variable;
@@ -256,6 +258,7 @@ function TablaUsuarios() {
           icono: "informacion",
         })
       );
+      selecionarRegistros();
   };
   const selecionarRegistros = async () => {
     let endpoint = op.conexion + "/Auth/ConsultarTodos";

@@ -28,38 +28,38 @@ function TablaMorosos() {
     {
       label: "N° de Contrato",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Nombre",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Cedula",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
 
     {
       label: "Placa",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Abonado",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Restante",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
   ];

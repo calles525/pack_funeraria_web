@@ -30,12 +30,12 @@ function TablaTipoVehiculoBocono() {
 
   console.log(user_id)
   const headCells = [
-    { label: "Codigo", textAlign: "center",backgroundColor:'#e70101bf',color:'white' },
-    { label: "Nombre", textAlign: "center",backgroundColor:'#e70101bf',color:'white' },
-    { label: "Precio", textAlign: "center",backgroundColor:'#e70101bf',color:'white' },
-    { label: "Estatus", textAlign: "center",backgroundColor:'#e70101bf',color:'white' },
+    { label: "Codigo", textAlign: "center",backgroundColor:'#008674',color:'white' },
+    { label: "Nombre", textAlign: "center",backgroundColor:'#008674',color:'white' },
+    { label: "Precio", textAlign: "center",backgroundColor:'#008674',color:'white' },
+    { label: "Estatus", textAlign: "center",backgroundColor:'#008674',color:'white' },
    
-    { label: "Opciones", textAlign: "center",backgroundColor:'#e70101bf',color:'white' },
+    { label: "Opciones", textAlign: "center",backgroundColor:'#008674',color:'white' },
 
   ];
 

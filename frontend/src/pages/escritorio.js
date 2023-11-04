@@ -34,7 +34,7 @@ import Panel from "./panel";
 import TablaPrecio from "../components/listaPrecios/tablaPrecios";
 import TablaLicencias from "../components/administracion/tablaLicencia";
 import PageChats from "../components/chat/chats";
-
+import ReportesSemanal from "../components/reportes/resportes";
 function MenuImpuestoPP(props) {
   //let token = localStorage.getItem("jwtToken");
   //let op = require("../modulos/datos");
@@ -115,9 +115,10 @@ function MenuImpuestoPP(props) {
   };*/
 
   let permisos = JSON.parse(localStorage.getItem("permisos"));
-  permisos = permisos.map((item) =>
-    item.replace(" ", "").replace(" ", "").replace("de", "").toLowerCase()
-  );
+  // console.log(permisos)
+  // permisos = permisos.map((item) =>
+  //   item.replace(" ", "").replace(" ", "").replace("de", "").toLowerCase()
+  // );
 
   console.log(permisos);
   console.log(pathname.substring(0, 4));
@@ -195,9 +196,12 @@ function MenuImpuestoPP(props) {
             {/* <Sidebar onCambiar={cambiar} />*/}
             <div id="sidebar-wrapper">
               <div className="sidebar-heading text-center  bluez-text fs-4 fw-bold text-uppercase border-bottom">
-                <div className="row mx-auto">
+               {/* <div className="row mx-auto">
                   <img className="mx-auto" style={{ width: 190 }} src={logo} />
-                </div>
+  </div>*/}
+  <div className="h-100 d-flex text-light justify-content-center m-2">
+                    <i class="fas fa-user-circle" style={{fontSize:'80px'}}></i>
+                    </div>
                 <h5 className="m-0 second-text text-light mt-3">{sucursal}</h5>
                 <h5 className="m-0 second-text text-light">{username}</h5>
                 <h5 className="m-0 second-text text-light">
@@ -237,7 +241,16 @@ function MenuImpuestoPP(props) {
                       data-bs-parent="#accordionExample"
                     >
                       <div className="accordion-body py-0 list-group px-0">
-                        {permisos.includes("contratosrealizados") && (
+                        {/*permisos.substring(0, 1) === "1" && (
+                          <a
+                            href="/sucursales"
+                            className="list-group-item list-group-item-action py-2 ripple"
+                          >
+                            <i class="fas fas-fw me-1 fa-map-signs"></i>
+                            <span>Lista de Sucursales</span>
+                          </a>
+                        )*/}
+                        {permisos.substring(1, 2) === "1" && (
                           <a
                             href="/contratosrealizados"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -246,16 +259,7 @@ function MenuImpuestoPP(props) {
                             <span>Contratos Realizados</span>
                           </a>
                         )}
-                        {permisos.includes("listasucursales") && (
-                          <a
-                            href="/sucursales"
-                            className="list-group-item list-group-item-action py-2 ripple"
-                          >
-                            <i class="fas fas-fw me-1 fa-map-signs"></i>
-                            <span>Lista de Sucursales</span>
-                          </a>
-                        )}
-                        {permisos.includes("tipocontratos") && (
+                        {permisos.substring(2, 3) === "1" && (
                           <a
                             href="/tipocontratos"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -264,7 +268,7 @@ function MenuImpuestoPP(props) {
                             <span>Tipos de Contratos</span>
                           </a>
                         )}
-                        {permisos.includes("tipocontratos") && (
+                        {/*permisos.substring(2, 3) === "1" && (
                           <a
                             href="/morosos"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -272,7 +276,7 @@ function MenuImpuestoPP(props) {
                             <i class="fas fas-fw me-1 fa-hand-holding-usd"></i>
                             <span>Listado de Morosos</span>
                           </a>
-                        )}
+                        )*/}
                         <a
                           href="/documento"
                           className="list-group-item list-group-item-action py-2 ripple"
@@ -280,23 +284,22 @@ function MenuImpuestoPP(props) {
                           <i class="fas fas-fw me-1 fa-file-signature"></i>
                           <span>Documentos</span>
                         </a>
-                      
-                          <a
-                            href="/licencias"
-                            className="list-group-item list-group-item-action py-2 ripple"
-                          >
-                            <i class="fas fas-fw me-1 fa-clipboard-list"></i>
-                            <span>Licencias</span>
-                          </a>
 
-                          <a
-                            href="/chats"
-                            className="list-group-item list-group-item-action py-2 ripple"
-                          >
-                            <i class="fab fa-rocketchat fas-fw me-1"></i>
-                            <span>Chats</span>
-                          </a>
-                     
+                        {/* <a
+                          href="/licencias"
+                          className="list-group-item list-group-item-action py-2 ripple"
+                        >
+                          <i class="fas fas-fw me-1 fa-clipboard-list"></i>
+                          <span>Licencias</span>
+                        </a> */}
+
+                       {/* <a
+                          href="/chats"
+                          className="list-group-item list-group-item-action py-2 ripple"
+                        >
+                          <i class="fab fa-rocketchat fas-fw me-1"></i>
+                          <span>Chats</span>
+                        </a>*/}
                       </div>
                     </div>
                   </div>
@@ -322,7 +325,7 @@ function MenuImpuestoPP(props) {
                       data-bs-parent="#accordionExample"
                     >
                       <div className="accordion-body py-0 list-group px-0">
-                        {permisos.includes("usovehiculo") && (
+                        {permisos.substring(3, 4) === "1" && (
                           <a
                             href="/usovehiculo"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -331,7 +334,7 @@ function MenuImpuestoPP(props) {
                             <span>Uso del Vehiculo</span>
                           </a>
                         )}
-                        {permisos.includes("clasevehiculo") && (
+                        {permisos.substring(4, 5) === "1" && (
                           <a
                             href="/clasevehiculo"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -340,7 +343,7 @@ function MenuImpuestoPP(props) {
                             <span>Clases de Vehiculos</span>
                           </a>
                         )}
-                        {permisos.includes("tipovehiculo") && (
+                        {permisos.substring(5, 6) === "1" && (
                           <a
                             href="/tipovehiculo"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -349,7 +352,7 @@ function MenuImpuestoPP(props) {
                             <span>Tipos de Vehiculos</span>
                           </a>
                         )}
-                        {permisos.includes("tipovehiculo") && (
+                        {/*permisos.substring(5, 6) === "1" && (
                           <a
                             href="/tipovehiculobocono"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -357,8 +360,8 @@ function MenuImpuestoPP(props) {
                             <i class="fas fas-fw me-1 fa-shuttle-van"></i>
                             <span>Tipos de Vehiculos Bocono</span>
                           </a>
-                        )}
-                        {permisos.includes("lineatransporte") && (
+                        )*/}
+                        {/*permisos.substring(6, 7) === "1" && (
                           <a
                             href="/transporte"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -366,7 +369,7 @@ function MenuImpuestoPP(props) {
                             <i class="fas fas-fw me-1 fa-bus"></i>
                             <span>Lineas de Transporte</span>
                           </a>
-                        )}
+                        )*/}
                       </div>
                     </div>
                   </div>
@@ -393,7 +396,7 @@ function MenuImpuestoPP(props) {
                       data-bs-parent="#accordionExample"
                     >
                       <div className="accordion-body py-0 list-group px-0">
-                        {permisos.includes("usuarios") && (
+                        {permisos.substring(7, 8) === "1" && (
                           <a
                             href="/usarios"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -402,7 +405,7 @@ function MenuImpuestoPP(props) {
                             <span>Usuarios</span>
                           </a>
                         )}
-                        {permisos.includes("roles") && (
+                        {permisos.substring(8, 9) === "1" && (
                           <a
                             href="/roles"
                             className="list-group-item list-group-item-action py-2 ripple"
@@ -454,36 +457,36 @@ function MenuImpuestoPP(props) {
                     </div>
                   </div>
                 </div>
-                <a
+               {/* <a
                   href="/certificadomedico"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
                 >
                   <i class="fas fa-prescription-bottle-alt fa-fw me-1"></i>
 
                   <span>Certificado Medico</span>
-                </a>
+                        </a>*/}
+              { /* <a
+                  href="/reporteSemanal"
+                  className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
+                >
+                  <i className="fas fa-fw me-1 fa-print " />
+                  <span>Lista de vendedores semanal</span>
+                </a>*/}
                 <a
                   href="/reportes"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
                 >
                   <i className="fas fa-fw me-1 fa-print " />
-                  <span>Lista de vendedores semanal</span>
-                </a>
-                <a
-                  href="/repotes"
-                  className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
-                >
-                  <i className="fas fa-fw me-1 fa-print " />
                   <span>Reportes</span>
                 </a>
-                <a
+              {/*  <a
                   href="/licencia"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
                 >
                   <i class="fas fa-id-card fa-fw me-1"></i>
 
                   <span>Licencias</span>
-                </a>
+                      </a>
                 <a
                   href="/cumpleañeros"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
@@ -491,15 +494,15 @@ function MenuImpuestoPP(props) {
                   <i class="fas fa-birthday-cake  fa-fw me-1 "></i>
 
                   <span>Cumpleañeros</span>
-                </a>
-                <a
+                </a>*/}
+               {/* <a
                   href="/panel"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
                 >
                   <i class="fas fa-fw me-1 fa-solar-panel"></i>
 
                   <span>Panel</span>
-                </a>
+                    </a>
                 <a
                   href="/listaPrecios"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
@@ -507,8 +510,8 @@ function MenuImpuestoPP(props) {
                   <i class="fas fa-file-invoice-dollar fa-fw me-1"></i>
 
                   <span>Lista de precios</span>
-                </a>
-               
+                </a>*/}
+
                 <a
                   href="/"
                   className="text-danger fw-bold list-group-item list-group-item-action py-2 ripple rounded"
@@ -528,7 +531,7 @@ function MenuImpuestoPP(props) {
                 path="/contratosrealizados"
                 component={TablaContratosRealizados}
               />
-              <AuthRoute exact path="/sucursales" component={TablaSursales} />
+             {/* <AuthRoute exact path="/sucursales" component={TablaSursales} />*/}
               <AuthRoute
                 exact
                 path="/tipocontratos"
@@ -544,10 +547,10 @@ function MenuImpuestoPP(props) {
                 path="/clasevehiculo"
                 component={TablaClaseVehiculo}
               />
-              <AuthRoute exact path="/transporte" component={TablaTransporte} />
+           {/*   <AuthRoute exact path="/transporte" component={TablaTransporte} />*/}
               <AuthRoute exact path="/usarios" component={TablaUsuarios} />
               <AuthRoute exact path="/roles" component={TablaRoles} />
-              <AuthRoute
+             {/* <AuthRoute
                 exact
                 path="/certificadomedico"
                 component={TablaCertificado}
@@ -556,7 +559,7 @@ function MenuImpuestoPP(props) {
                 exact
                 path="/cumpleañeros"
                 component={TablaClumpeañeros}
-              />
+              />*/}
               <AuthRoute
                 exact
                 path="/graficasingegre"
@@ -567,19 +570,24 @@ function MenuImpuestoPP(props) {
                 path="/tipovehiculo"
                 component={TablaTipoVehiculo}
               />
-              <AuthRoute
+             {/* <AuthRoute
                 exact
                 path="/tipovehiculobocono"
                 component={TablaTipoVehiculoBocono}
-              />
+                        />*/}
               <AuthRoute exact path="/licencia" component={TablaLicencia} />
               <AuthRoute exact path="/reportes" component={TablaReportes} />
-              <AuthRoute exact path="/morosos" component={TablaMorosos} />
+             {/* <AuthRoute exact path="/morosos" component={TablaMorosos} />*/}
               <AuthRoute exact path="/documento" component={TablaDocumento} />
-              <AuthRoute exact path="/panel" component={Panel} />
-              <AuthRoute exact path="/listaPrecios" component={TablaPrecio}/>
-              <AuthRoute exact path="/licencias" component={TablaLicencias}/>
-              <AuthRoute exact path="/chats" component={PageChats}/>
+             {/* <AuthRoute exact path="/panel" component={Panel} /> */}
+             {/*  <AuthRoute exact path="/listaPrecios" component={TablaPrecio} />
+             <AuthRoute exact path="/licencias" component={TablaLicencias} /> */}
+             {/* <AuthRoute exact path="/chats" component={PageChats} />
+              <AuthRoute
+                exact
+                path="/reporteSemanal"
+                component={ReportesSemanal}
+              />*/}
 
               <AuthRoute
                 exact

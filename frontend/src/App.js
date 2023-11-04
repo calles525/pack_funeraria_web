@@ -43,7 +43,7 @@ function App(props) {
     currSeconds++;
     /*  console.log(currSeconds); */
 
-    if (currSeconds === 180 && pathname !== "/" && pathname !== "/") {
+    if (currSeconds === 180 && pathname !== "/login" && pathname !== "/") {
       setMensaje({
         mostrar: true,
         icono: "error",
@@ -52,8 +52,8 @@ function App(props) {
       });
     }
 
-    if (currSeconds === 190 && pathname !== "/" && pathname !== "/") {
-      window.location.href = "/";
+    if (currSeconds === 190 && pathname !== "/login" && pathname !== "/") {
+      window.location.href = "/login";
       setMensaje({
         mostrar: false,
         icono: "",
@@ -68,7 +68,7 @@ function App(props) {
       <MensajeSiNo
         mensaje={mensaje}
         onHideSi={() => {
-          window.location.href = "/";
+          window.location.href = "/login";
         }}
         onHideNo={() => {
           setMensaje({
@@ -79,20 +79,20 @@ function App(props) {
           });
         }}
       />
-     
+      
         <AuthProvider>
           <Router>
-            <Route exact path="/" component={Login} /> 
-         
+          <Route exact path="/" component={Login} /> 
 
-            {pathname !== "/" && (
+
+            {pathname !== "/"  && (
               <div>
                 <MenuImpuestoPP />
               </div>
             )}
           </Router>
         </AuthProvider>
-     
+    
     </div>
   );
 }

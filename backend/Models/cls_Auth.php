@@ -1,6 +1,11 @@
 <?php
 
-require_once("cls_db.php");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+if (is_file("vendor/autoload.php")) require "vendor/autoload.php";
+if (!class_exists("cls_db")) require("cls_db.php");
 
 class cls_Auth extends cls_db
 {
@@ -20,14 +25,15 @@ class cls_Auth extends cls_db
 
     $sql->execute([$this->usuario]);
     $resultado = $sql->fetch(PDO::FETCH_ASSOC);
-    if (!empty($resultado)) {
+
+    if (isset($resultado['usuario_id'])) {
       if ($resultado["usuario_estatus"] == 0) {
         return [
           'data' => [
             'res' => [
               'text' => "El usuario está desactivado",
               "code" => 400
-            ] 
+            ]
           ],
           'code' => 400
         ];
@@ -61,9 +67,9 @@ class cls_Auth extends cls_db
         return [
           'data' => [
             'res' => [
-              'text' => "Su clave es inválida ($this->clave === )" . $resultado['usuario_clave'],
+              'text' => "Su clave es inválida",
               "code" => 400
-            ] 
+            ]
           ],
           'code' => 400
         ];
@@ -88,14 +94,13 @@ class cls_Auth extends cls_db
       // }
 
 
-      $permisos = $this->Get_permisos_usuario($resultado["usuario_id"]);
+      // $permisos = $this->Get_permisos_usuario($resultado["usuario_id"]);
       $dato = $this->GetOne($resultado["usuario_id"]);
-
-      if (!empty($permisos)) {
-        $lista = [];
-        foreach ($permisos as $per) {
-          array_push($lista, $per["permiso_modulo"]);
-        }
+      if (!empty($dato)) {
+        // $lista = [];
+        // foreach ($permisos as $per) {
+        //   array_push($lista, $per["permiso_modulo"]);
+        // }
 
         return [
           'data' => [
@@ -103,7 +108,7 @@ class cls_Auth extends cls_db
             'usuario' => [
               'username' => $dato["usuario_usuario"],
               'user_id' => $dato["usuario_id"],
-              'permisos' => $lista,
+              'permisos' => $dato['permisos'],
               'rol' => $dato["roles_id"],
               'RequireUpdatePass' => $PasswordUpdate
             ],
@@ -114,12 +119,19 @@ class cls_Auth extends cls_db
           ],
           'code' => 200
         ];
+      } else {
+        return [
+          'data' => [
+            'res' => ['text' => "El usuario no posee permisos para acceder al sistema", 'code' => 400]
+          ],
+          'code' => 400
+        ];
       }
     }
 
     return [
       'data' => [
-        'res' => "El usuario no existe o los datos ingresados son invalidos"
+        'res' => ['text' => "El usuario no existe o los datos ingresados son invalidos", 'code' => 400]
       ],
       'code' => 400
     ];
@@ -150,27 +162,31 @@ class cls_Auth extends cls_db
   {
     try {
       $result = $this->SearchByUsername($this->usuario);
-      if (isset($result[0])) {
+      if (isset($result["usuario_usuario"])) {
         return [
           'data' => [
-            'res' => "Este nombre de usuario ($this->usuario) ya existe"
+            'res' => "Este nombre de usuario ($this->usuario) ya existe",
+            "code" => 400
           ],
           'code' => 400
         ];
       }
 
       $result = $this->SearchByCedula($this->cedula);
-      if (isset($result[0])) {
+      if (isset($result["usuario_cedula"])) {
         return [
           'data' => [
-            'res' => "La cédula de usuario ($this->cedula) ya existe"
+            'res' => "La cédula de usuario ($this->cedula) ya existe",
+            "code" => 400
           ],
           'code' => 400
         ];
       }
 
 
-      $clave = password_hash($this->clave, PASSWORD_BCRYPT, ['cost' => 12]);
+      // $clave = password_hash((isset($this->clave) ? $this->clave : $this->cedula), PASSWORD_BCRYPT, ['cost' => 12]);
+      $clave = $this->cedula;
+
       $sql = $this->db->prepare("INSERT INTO 
       usuario(
           usuario_usuario,
@@ -201,14 +217,18 @@ class cls_Auth extends cls_db
         $this->permiso
       ]);
       $this->id = $this->db->lastInsertId();
-      if ($sql->rowCount() > 0)
+      if ($sql->rowCount() > 0) {
+        $this->reg_bitacora([
+          'table_name' => "usuario",
+          'des' => "Registro de datos de usuario ($this->usuario, $this->nombre, $this->apellido, $this->telefono)"
+        ]);
         return [
           'data' => [
             'res' => "Registro exitoso"
           ],
           'code' => 200
         ];
-
+      }
       return [
         'data' => [
           'res' => "El registro ha fallado, verifica que no hallas duplicado el usuario de alguien mas o tus datos sean correctos"
@@ -241,29 +261,35 @@ class cls_Auth extends cls_db
       usuario_usuario = ?,
       usuario_nombre = ?,
       usuario_apellido = ?,
+      usuario_cedula = ?,
       usuario_telefono = ?,
       usuario_direccion = ?,
       usuario_correo = ?,
+      roles_id =?,
+      sucursal_id =?,
       permisos = ?
       WHERE usuario_id = ?");
-      if (
-        $sql->execute([
-          $this->usuario,
-          $this->nombre,
-          $this->apellido,
-          $this->telefono,
-          $this->direccion,
-          $this->correo,
-          $this->permiso,
-          $this->id,
+      $sql->execute([
+        $this->usuario,
+        $this->nombre,
+        $this->apellido,
+        $this->cedula,
+        $this->telefono,
+        $this->direccion,
+        $this->correo,
+        $this->rol,
+        $this->sucursal,
+        $this->permiso,
+        $this->id,
+      ]);
 
-        ])
-      ) {
 
-        $this->reg_bitacora([
-          'table_name' => "usuario",
-          'des' => "Actualización de datos de usuario ($this->usuario, $this->nombre, $this->apellido, $this->telefono, $this->correo, $this->direccion"
-        ]);
+      if ($sql->rowCount() > 0) {
+
+        // $this->reg_bitacora([
+        //   'table_name' => "usuario",
+        //   'des' => "Actualización de datos de usuario ($this->usuario, $this->nombre, $this->apellido, $this->telefono, $this->correo, $this->direccion"
+        // ]);
         return [
           'data' => [
             'res' => "Actualización de datos exitosa"
@@ -292,7 +318,8 @@ class cls_Auth extends cls_db
   {
     try {
       $sql = $this->db->prepare("UPDATE usuario SET usuario_estatus = ? WHERE usuario_id = ?");
-      if ($sql->execute([$this->estatus, $this->id])) {
+      $sql->execute([$this->estatus, $this->id]);
+      if ($sql->rowCount() > 0) {
         $this->reg_bitacora([
           'table_name' => "usuario",
           'des' => "Cambio de estatus del usuario ($this->id)"
@@ -318,12 +345,12 @@ class cls_Auth extends cls_db
   {
     try {
       $sql = $this->db->prepare("UPDATE usuario SET usuario_clave = ? WHERE usuario_id = ?");
-      if (
-        $sql->execute([
-          $this->clave,
-          $this->id
-        ])
-      ) {
+      $sql->execute([
+        $this->clave,
+        $this->id
+      ]);
+
+      if ($sql->rowCount() > 0) {
         return [
           'data' => [
             'res' => "Actualización de datos exitosa"
@@ -353,11 +380,10 @@ class cls_Auth extends cls_db
     $sql = $this->db->prepare("SELECT usuario.*, roles.*, sucursal.*  FROM usuario 
       INNER JOIN roles ON roles.roles_id = usuario.roles_id
       INNER JOIN sucursal ON sucursal.sucursal_id = usuario.sucursal_id WHERE usuario_id = ?");
+    $sql->execute([$id]);
 
-    if ($sql->execute([$id]))
-      $resultado = $sql->fetch(PDO::FETCH_ASSOC);
-    else
-      $resultado = [];
+    if ($sql->rowCount() > 0) $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+    else $resultado = [];
     return $resultado;
   }
 
@@ -366,11 +392,10 @@ class cls_Auth extends cls_db
     $sql = $this->db->prepare("SELECT usuario.*, roles.*, sucursal.*  FROM usuario 
       INNER JOIN roles ON roles.roles_id = usuario.roles_id
       INNER JOIN sucursal ON sucursal.sucursal_id = usuario.sucursal_id WHERE usuario_usuario = ?");
+    $sql->execute([$user]);
 
-    if ($sql->execute([$user]))
-      $resultado = $sql->fetch(PDO::FETCH_ASSOC);
-    else
-      $resultado = [];
+    if ($sql->rowCount() > 0) $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+    else $resultado = [];
     return $resultado;
   }
 
@@ -379,33 +404,30 @@ class cls_Auth extends cls_db
     $sql = $this->db->prepare("SELECT * FROM usuario WHERE 
       usuario_usuario = ? AND
       usuario_id != ?");
+    $sql->execute([$this->usuario, $this->id]);
 
-    if ($sql->execute([$this->usuario, $this->id]))
-      $resultado = $sql->fetch(PDO::FETCH_ASSOC);
-    else
-      $resultado = [];
+    if ($sql->rowCount() > 0) $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+    else $resultado = [];
     return $resultado;
   }
 
   protected function SearchByUsername($username)
   {
     $sql = $this->db->prepare("SELECT * FROM usuario WHERE usuario_usuario = ?");
+    $sql->execute([$username]);
 
-    if ($sql->execute([$username]))
-      $resultado = $sql->fetch(PDO::FETCH_ASSOC);
-    else
-      $resultado = [];
+    if ($sql->rowCount() > 0) $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+    else $resultado = [];
     return $resultado;
   }
 
   protected function SearchByCedula($cedula)
   {
     $sql = $this->db->prepare("SELECT * FROM usuario WHERE usuario_cedula = ?");
+    $sql->execute([$cedula]);
 
-    if ($sql->execute([$cedula]))
-      $resultado = $sql->fetch(PDO::FETCH_ASSOC);
-    else
-      $resultado = [];
+    if ($sql->rowCount() > 0) $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+    else $resultado = [];
     return $resultado;
   }
 
@@ -558,4 +580,155 @@ class cls_Auth extends cls_db
       ];
     }
   }
+
+  protected function ChangePassword()
+  {
+    $sql = $this->db->prepare("UPDATE usuario SET usuario_clave = ?, intentos = 0 WHERE usuario_id = ?");
+    if ($sql->execute([$this->clave, $this->id])) {
+      return [
+        "data" => [
+          "res" => "Contraseña modificada",
+          "code" => 200
+        ],
+        "code" => 200
+      ];
+    } else {
+      return [
+        "data" => [
+          "res" => "No se pudo modiciar la contraseña",
+          "code" => 400
+        ],
+        "code" => 400
+      ];
+    };
+  }
+
+  // public function VerificarCorreo($cedula, $email)
+  // {
+  //   $email = strtoupper($email);
+  //   $sql = "SELECT usuarios.id_user FROM personas 
+  //     INNER JOIN usuarios ON usuarios.person_id_user = personas.id_person WHERE 
+  //     personas.cedula_person = '$cedula' AND personas.correo_person = '$email';";
+
+  //   $result = $this->Query($sql);
+  //   if ($result->num_rows > 0) {
+  //     $datos = $this->Get_array($result);
+  //     $code = $this->Make_code_recovery($datos['id_user']);
+  //     $this->SendEmail($code, $email);
+
+  //     return [
+  //       'status' => true,
+  //       'next' => 2,
+  //       'id_user' => $datos['id_user'],
+  //       'message' => [
+  //         'code' => 'success',
+  //         'msg' => "Correo verificado",
+  //       ]
+  //     ];
+  //   }
+
+  //   return [
+  //     'status' => false,
+  //     'next' => 1,
+  //     'message' => [
+  //       'code' => 'error',
+  //       'msg' => "El correo ingresado no coincide",
+  //     ]
+  //   ];
+  // }
+
+  // public function Make_code_recovery($id_user)
+  // {
+  //   $code = $this->generateRandomString();
+
+  //   $sql = "SELECT * FROM codigos_recuperacion WHERE char_code = '$code';";
+  //   $result = $this->Query($sql);
+
+  //   if ($result->num_rows === 0) {
+  //     $datos = $this->Get_array($result);
+  //     $this->Query("UPDATE codigos_recuperacion SET status_code = 0 WHERE id_user = $id_user;");
+
+  //     $sql = "INSERT INTO codigos_recuperacion(date_cod, status_code, char_code, id_user) VALUES (NOW(),'1','$code',$id_user);";
+  //     $this->Query($sql);
+
+  //     return $code;
+  //   }
+
+  //   die("FALLO algo");
+  //   $this->Make_code_recovery($id_user);
+  // }
+
+  // public function SendEmail($code, $email)
+  // {
+  //   if (constant('username_email')  == '') die("Debes de tener configurada una cuenta de Correo electronico");
+
+  //   $mail = new PHPMailer(true);
+  //   $email_user = strtolower($email);
+
+  //   try {
+  //     ini_set('display_errors', 1);
+  //     error_reporting(E_ALL);
+
+  //     $mail->SMTPDebug = 0;                              //Enable verbose debug output
+  //     $mail->isSMTP();                                   //Send using SMTP
+  //     $mail->Host       = 'smtp.gmail.com';              //Set the SMTP server to send through
+  //     $mail->SMTPAuth   = true;                          //Enable SMTP authentication
+  //     $mail->Username   = constant('username_email');    //SMTP username
+  //     $mail->Password   = constant('password_email');    //SMTP password
+  //     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   //Enable implicit TLS encryption
+  //     $mail->Port       = constant('port_email');
+
+
+  //     //Recipients
+  //     $mail->setFrom(constant('username_email'), 'Mailer');
+  //     $mail->addAddress($email_user);     //Add a recipient
+
+  //     //Content
+  //     $mail->isHTML(true);                                  //Set email format to HTML
+  //     $mail->Subject = 'Codigo de recuperacion';
+  //     $mail->Body    = "Este es tu código de recuperación: <b>$code</b>";
+
+  //     if (!$mail->send()) return false;
+  //     else return true;
+  //   } catch (Exception $e) {
+  //     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+  //   }
+  // }
+
+  // function generateRandomString($length = 8)
+  // {
+  //   return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+  // }
+
+  // public function ValidacionCodigo($datos)
+  // {
+
+  //   $code = $datos['code'];
+  //   $id_user = $datos['id'];
+
+  //   $sql = "SELECT * FROM codigos_recuperacion WHERE char_code = '$code' AND id_user = $id_user AND status_code = 1;";
+  //   $result = $this->Query($sql);
+
+  //   if ($result->num_rows > 0) {
+
+  //     return [
+  //       'status' => true,
+  //       'next' => 3,
+  //       'id_user' => $id_user,
+  //       'message' => [
+  //         'code' => 'success',
+  //         'msg' => "Código verificado!",
+  //       ]
+  //     ];
+  //   }
+  //   return [
+  //     'status' => false,
+  //     'next' => 2,
+  //     'id_user' => $id_user,
+  //     'message' => [
+  //       'code' => 'error',
+  //       'msg' => "Código incorrecto o invalido",
+  //     ]
+  //   ];
+  // }
 }

@@ -48,56 +48,56 @@ function Inicio2() {
     {
       label: "N° Contrato",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Fecha Vencimiento",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "C.I/R.I.F.",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Benefeciario",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Telefono",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Placa",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Acesor",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Sucursal",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
 
     {
       label: "Opciones",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
   ];
@@ -499,7 +499,7 @@ function Inicio2() {
           />
 
           <div className="col-6 d-flex justify-content-end">
-            <button
+           {/* <button
               type="button"
               class="btn btn-primary btn-sm mx-1"
               onClick={gestionarRcv(3)}
@@ -513,7 +513,7 @@ function Inicio2() {
               onClick={gestionarRcv(2)}
             >
               <i class="fa fa-plus"></i> Certificado Medico
-            </button>
+      </button>*/}
             <button
               type="button"
               class="btn btn-primary btn-sm mx-1"

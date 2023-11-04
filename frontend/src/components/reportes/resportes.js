@@ -9,7 +9,7 @@ import useTable from "../useTable";
 import { TableBody, TableRow, TableCell } from "@material-ui/core";
 import { formatMoneda, validaMonto, formatoMonto } from "../../util/varios";
 
-function TablaSursales() {
+function ReportesSemanal() {
   var op = require("../../modulos/datos");
   let token = localStorage.getItem("jwtToken");
   const user_id = JSON.parse(localStorage.getItem("user_id"));
@@ -27,33 +27,33 @@ function TablaSursales() {
     {
       label: "Nombre del vendedor",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Sucursal",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
     {
       label: "Cantidad de contratos",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
 
     {
       label: "Monto",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
 
     {
       label: "Generar Reporte",
       textAlign: "center",
-      backgroundColor: "#e70101bf",
+      backgroundColor: "#008674",
       color: "white",
     },
   ];
@@ -348,8 +348,10 @@ function TablaSursales() {
             onChange={(e) => (hasta.current = e.target.value)}
           />
           <input
+            value={"Buscar"}
+            style={{ backgroundColor: "white", color: "black",  }}
             type="button"
-            className=" col-3"
+            className=" col-2"
             placeholder="Buscar"
             onClick={selecionarRegistros}
           />
@@ -426,4 +428,4 @@ function TablaSursales() {
   );
 }
 
-export default TablaSursales;
+export default ReportesSemanal;
