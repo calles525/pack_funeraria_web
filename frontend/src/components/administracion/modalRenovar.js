@@ -394,7 +394,7 @@ export const ModalRenovarPoliza = (props) => {
         selecionarRegistros(props.idCliente);
       }}
     >
-      <Modal.Header className="bg-danger">
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>Renovacion</Modal.Title>
         <button
           ref={btnCancela}

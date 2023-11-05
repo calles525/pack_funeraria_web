@@ -366,7 +366,7 @@ export const GestionarClave = (props) => {
         }
       }}
     >
-      <Modal.Header style={{ backgroundColor: "#019cd5" }}>
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>Cambiar Clave</Modal.Title>
         <button
           ref={btnCancela}

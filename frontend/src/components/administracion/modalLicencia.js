@@ -398,7 +398,7 @@ export const ModalLicencia = (props) => {
         }
       }}
     >
-      <Modal.Header className="bg-danger">
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>
           {props.operacion === 2 ? "Editar Licencia" : "Registrar Licencia"}
         </Modal.Title>

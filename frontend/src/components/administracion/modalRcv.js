@@ -900,7 +900,7 @@ export const ModalRcv = (props) => {
         selecionarTipo();
       }}
     >
-      <Modal.Header className="bg-danger">
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>
           <Modal.Title style={{ color: "#fff" }}>
             {operacion === 1
@@ -1156,7 +1156,7 @@ export const ModalRcv = (props) => {
                 >
                   Datos del contratante
                 </legend>
-                <div class="input-group input-group-sm mb-1 co-md-5">
+                <div class="input-group input-group-sm mb-1 col-md-5">
                   <span class="input-group-text" id="inputGroup-sizing-sm">
                     Cedula:
                   </span>
@@ -1387,17 +1387,17 @@ export const ModalRcv = (props) => {
                     ) : null}
                   </div>
                 </div>
-                <div class="col-md-6">
+              {/*   <div class="col-md-6">
                   <div class="input-group input-group-sm mb-2 ">
                     <span class="input-group-text" id="inputGroup-sizing-sm">
                       Linea de Transporte:{" "}
                     </span>
-                    {/*<select class="form-select" ref={txtLinea} aria-label="Default select example">
+                   <select class="form-select" ref={txtLinea} aria-label="Default select example">
 
                       {transporte && transporte.map((item, index) => (
                         <option key={index} value={item.transporte_id} > {item.transporte_nombre} </option>
                       ))}
-                    </select>*/}
+                    </select>
 
                     <input
                       disabled
@@ -1417,7 +1417,7 @@ export const ModalRcv = (props) => {
                       <i class="fa fa-search"></i>
                     </button>
                   </div>
-                </div>
+                </div>*/}
               </fieldset>
               <fieldset class="border rounded-3 p-3 row mx-auto">
                 <legend

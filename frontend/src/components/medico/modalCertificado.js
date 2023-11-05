@@ -260,7 +260,7 @@ export const ModalImgLicencia = (props) => {
         setOperacion(props.operacion);
       }}
     >
-      <Modal.Header className="bg-danger">
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>
           {operacion === 1
             ? "Registrar Sucursal"

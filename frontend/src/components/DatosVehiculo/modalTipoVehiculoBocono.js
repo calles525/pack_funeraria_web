@@ -495,7 +495,7 @@ export const ModalTipoVehiculoBocono = (props) => {
         }
       }}
     >
-      <Modal.Header className="bg-danger">
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>
           {operacion === 1 ? 'Registrar Tipo de Vehiculo Bocono' : operacion === 2 ? 'Editar Tipo de Vehiculo Bocono' : 'Eliminar Tipo de Vehiculo Bocono'}
         </Modal.Title>

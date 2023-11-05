@@ -253,7 +253,7 @@ export const GestionarPreguntas = (props) => {
         }
       }}
     >
-      <Modal.Header style={{ backgroundColor: "#019cd5" }}>
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>
           Preguntas de Seguridad
         </Modal.Title>

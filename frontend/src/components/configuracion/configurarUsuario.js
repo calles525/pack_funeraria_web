@@ -373,7 +373,7 @@ export const ModalConfigurarUsuarios = (props) => {
        
       }}
     >
-      <Modal.Header className="bg-danger">
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>
          Configuración de Usuario
         </Modal.Title>

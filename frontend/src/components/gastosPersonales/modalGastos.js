@@ -311,7 +311,7 @@ export const ModalGastos = (props) => {
         }
       }}
     >
-      <Modal.Header className="bg-danger">
+      <Modal.Header className="bg-azul">
         <Modal.Title style={{ color: "#fff" }}>
           {operacion === 1
             ? "Registrar Gastos Personales"
