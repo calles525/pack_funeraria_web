@@ -121,16 +121,12 @@ export const ModalUsoVehiculo = (props) => {
     let bodyF = new FormData();
 
     if (operacion === 1) {
-      endpoint = op.conexion + "/usoVehiculo/registrar";
+      endpoint = op.conexion + "/uso_vehiculo/registrar";
       bodyF.append("Nombre", txtDescripcion.current.value);
     } else if (operacion === 2) {
-      endpoint = op.conexion + "/usoVehiculo/actualizar";
+      endpoint = op.conexion + "/uso_vehiculo/actualizar";
       bodyF.append("Nombre", txtDescripcion.current.value);
-      bodyF.append("ID", values.usoVehiculo_id);
-    } else {
-      endpoint = op.conexion + "/usoVehiculo/eliminar";
-      bodyF.append("Nombre", txtDescripcion.current.value);
-      bodyF.append("ID", values.usoVehiculo_id);
+      bodyF.append("ID", values.id_uso_vehi);
     }
     bodyF.append("token", token);
     await fetch(endpoint, {
@@ -288,16 +284,10 @@ export const ModalUsoVehiculo = (props) => {
   };
 
   const selecionarUso = async (id) => {
-    let endpoint = op.conexion + "/usoVehiculo/ConsultarUno?ID=" + id;
+    let endpoint = op.conexion + "/uso_vehiculo/ConsultarUno?ID=" + id;
     console.log(endpoint);
     setActivate(true);
-
-    //setLoading(false);
-
     let bodyF = new FormData();
-
-    // bodyF.append("Nombre", txtDescripcion.current.value)
-
     await fetch(endpoint, {
       method: "POST",
       body: bodyF,
@@ -306,8 +296,7 @@ export const ModalUsoVehiculo = (props) => {
       .then((response) => {
         setActivate(false);
         console.log(response);
-
-        txtDescripcion.current.value = response.usoVehiculo_nombre;
+        txtDescripcion.current.value = response.des_uso_vehi;
         setValues(response);
       })
       .catch((error) =>
@@ -321,19 +310,22 @@ export const ModalUsoVehiculo = (props) => {
   };
 
   const validarInput = (e) => {
-    console.log(e.target.name)
-   let item = document.getElementById(e.target.name);
-    if(!e.target.value || e.target.name === 'ced' && e.target.value.length < 8){
-      console.log('1')
-      item.className -= ' form-text fw-bold hidden ';
-      item.className += ' form-text fw-bold visible ';
+    console.log(e.target.name);
+    let item = document.getElementById(e.target.name);
+    if (
+      !e.target.value ||
+      (e.target.name === "ced" && e.target.value.length < 8)
+    ) {
+      console.log("1");
+      item.className -= " form-text fw-bold hidden ";
+      item.className += " form-text fw-bold visible ";
     } else {
-      console.log('2')
+      console.log("2");
 
-      item.className -= ' form-text fw-bold visible ';
-      item.className += ' form-text fw-bold hidden ';
+      item.className -= " form-text fw-bold visible ";
+      item.className += " form-text fw-bold hidden ";
     }
-  }
+  };
 
   return (
     <Modal
@@ -396,30 +388,30 @@ export const ModalUsoVehiculo = (props) => {
         />
 
         <div className="col-md-12 row mx-auto">
-        <div class=" mb-1 col-md-12">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text" id="inputGroup-sizing-sm">
-              Nombre:
-            </span>
-            <textarea
-              onKeyDown={handleChange(25)}
-              type="textarea"
-              disabled={
-                operacion === 1 ? false : operacion === 2 ? false : true
-              }
-              style={{ height: 40 }}
-              class="form-control"
-              ref={txtDescripcion}
-              aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-sm"
-              name="nom"
-              onBlur={validarInput}
-            />
-              </div>
-          <div id="nom" class="form-text hidden">Debe ingresar nombre del uso</div>
-
+          <div class=" mb-1 col-md-12">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text" id="inputGroup-sizing-sm">
+                Nombre:
+              </span>
+              <textarea
+                onKeyDown={handleChange(25)}
+                type="textarea"
+                disabled={
+                  operacion === 1 ? false : operacion === 2 ? false : true
+                }
+                style={{ height: 40 }}
+                class="form-control"
+                ref={txtDescripcion}
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm"
+                name="nom"
+                onBlur={validarInput}
+              />
+            </div>
+            <div id="nom" class="form-text hidden">
+              Debe ingresar nombre del uso
+            </div>
           </div>
-
         </div>
       </Modal.Body>
       <Modal.Footer>

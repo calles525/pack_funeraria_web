@@ -28,32 +28,32 @@ function TablaSursales() {
     {
       label: "Codigo",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Descripción",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Dirección",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Estatus",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
 
     {
       label: "Opciones",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
   ];

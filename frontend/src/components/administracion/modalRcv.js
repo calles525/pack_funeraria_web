@@ -17,9 +17,9 @@ import moment from "moment";
 import { Mensaje } from "../mensajes";
 import CatalogoClientes from "../../catalogos/catalogoClientes";
 import CatalogoTipoContrato from "../../catalogos/catalagoTipoContrato";
-import CatalogoAcesor from "../../catalogos/catalogoAcesor";
-import CatalogoSucursal from "../../catalogos/catalagoSucursal";
-import CatalogoTransporte from "../../catalogos/catalagoTransporte";
+// import CatalogoAcesor from "../../catalogos/catalogoAcesor";
+// import CatalogoSucursal from "../../catalogos/catalagoSucursal";
+// import CatalogoTransporte from "../../catalogos/catalagoTransporte";
 import CatalogoUso from "../../catalogos/catalogoUso";
 import CatalogoClase from "../../catalogos/catalogoClase";
 import CatalogoTipo from "../../catalogos/catalagoTipoVehiculo";
@@ -305,258 +305,6 @@ export const ModalRcv = (props) => {
       );
   };
 
-  const selecionarPrecio = async () => {
-    let endpoint = op.conexion + "/tipo_vehiculo/ConsultarPrecio";
-    setActivate(true);
-    let bodyF = new FormData();
-    bodyF.append("Contrato", TxtTipoContrato.current.value);
-    bodyF.append("Tipo", cmbTipo.current.value);
-    bodyF.append("Sucursal", suc);
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        txtDolar.current.value = response[0]["precio_monto"];
-        txtBs.current.value = response[0]["precio_monto"] * dolarbcv; 
-        console.log("tipo contrato");
-        setTipoContrato(response);
-        console.log(response);
-        txtDolar.current.value(response.precio_monto);
-      })
-      .catch((error) => console.log("Precio: Falta uno de los parametros"));
-  };
-
-  const selecionarTipoContrato = async () => {
-    let endpoint = op.conexion + "/tipo_contrato/ConsultarTodos";
-    setActivate(true);
-    let bodyF = new FormData();
-    // bodyF.append("ID", user_id)
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        setTipoContrato(response);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
-  const selecionarEstado = async () => {
-    let endpoint = op.conexion + "/estado/ConsultarTodos";
-    setActivate(true);
-
-    //setLoading(false);
-
-    let bodyF = new FormData();
-
-    // bodyF.append("ID", user_id)
-
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-
-        setEstados(response);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
-  const selecionarAcesor = async () => {
-    let endpoint = op.conexion + "/Auth/ConsultarTodos";
-    setActivate(true);
-
-    //setLoading(false);
-
-    let bodyF = new FormData();
-
-    // bodyF.append("ID", user_id)
-
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        setAcesor(response);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
-  const selecionarSucursal = async () => {
-    let endpoint = op.conexion + "/sucursal/ConsultarTodos";
-    setActivate(true);
-
-    //setLoading(false);
-
-    let bodyF = new FormData();
-
-    // bodyF.append("ID", user_id)
-
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        setSucursal(response);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
-  const selecionarTransporte = async () => {
-    let endpoint = op.conexion + "/transporte/ConsultarTodos";
-    setActivate(true);
-
-    //setLoading(false);
-
-    let bodyF = new FormData();
-
-    // bodyF.append("ID", user_id)
-
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        setTransporte(response);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
-  const selecionarUso = async () => {
-    let endpoint = op.conexion + "/usoVehiculo/ConsultarTodos";
-    setActivate(true);
-
-    //setLoading(false);
-
-    let bodyF = new FormData();
-
-    // bodyF.append("ID", user_id)
-
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        setUso(response);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
-  const selecionarClase = async () => {
-    let endpoint = op.conexion + "/claseVehiculo/ConsultarTodos";
-    setActivate(true);
-
-    //setLoading(false);
-
-    let bodyF = new FormData();
-
-    // bodyF.append("ID", user_id)
-
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        setClase(response);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
-  const selecionarTipo = async () => {
-    let endpoint =op.conexion +"/tipo_vehiculo/ConsultarTodos?Sucursal=" + idsucursal;
-    setActivate(true);
-
-    //setLoading(false);
-
-    let bodyF = new FormData();
-
-    // bodyF.append("Sucursal",);
-
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        setTipo(response);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
   const onChangeValidar = () => {
     let sigue = true;
     let minimo = 0;
@@ -598,71 +346,6 @@ export const ModalRcv = (props) => {
       regex = /[a-z]/gi;
     if (!regex.test(char)) e.preventDefault();
     return false;
-  };
-  const seleccionarCliente = (
-    nombre,
-    apellido,
-    cedula,
-    nacionalidad,
-    correo,
-    codigo,
-    telefono,
-    dir
-  ) => {
-    console.log(nombre, apellido, cedula);
-    cmbNacionalidad.current.value = nacionalidad + "-";
-    txtCedula.current.value = cedula;
-    txtApellido.current.value = apellido;
-    txtNombre.current.value = nombre;
-    cmbTelefono.current.value = codigo + "-";
-    txtTelefono.current.value = telefono;
-    txtCorreo.current.value = correo;
-    txtDirec.current.value = dir;
-    let item = document.getElementById("ced");
-    item.className -= " form-text fw-bold visible ";
-    item.className += " form-text fw-bold hidden ";
-    setMostrar(false);
-  };
-  const seleccionarVehiculo = (
-    placa,
-    puesto,
-    uso,
-    ano,
-    serMotor,
-    clase,
-    color,
-    serCarroceria,
-    tipo,
-    modelo,
-    marca,
-    peso,
-    capTotal
-  ) => {
-    setMostrar8(false);
-
-    txtPlaca.current.value = placa;
-    txtPuesto.current.value = puesto;
-    txtUso.current.value = uso;
-    txtAño.current.value = ano;
-    txtSerMotor.current.value = serMotor;
-    txtClase.current.value = clase;
-    txtColor.current.value = color;
-    txtSerCarroceria.current.value = serCarroceria;
-    cmbTipo.current.value = tipo;
-    txtModelo.current.value = modelo;
-    txtMarca.current.value = marca;
-    txtPeso.current.value = peso;
-    txtCapTon.current.value = capTotal;
-    setMostrar(false);
-    selecionarPrecio();
-  };
-  const seleccionarTitular = (nombre, apellido, cedula, nacionalidad) => {
-    setMostrar9(false);
-    cmbNacionalidadTitular.current.value = nacionalidad + "-";
-    txtCedulatTitular.current.value = cedula;
-    txtNombreTitular.current.value = nombre;
-    txtApellidoTitular.current.value = apellido;
-    setMostrar(false);
   };
 
   const cerrarModal = () => {
@@ -755,36 +438,6 @@ export const ModalRcv = (props) => {
     }
   };
 
-  const selectTipoContrato = (nombre) => {
-    setMostrar1(false);
-    TxtTipoContrato.current.value = nombre;
-  };
-
-  const selectAcesor = (nombre) => {
-    setMostrar2(false);
-    txtAcesor.current.value = nombre;
-  };
-
-  const selectSucursal = (nombre) => {
-    setMostrar3(false);
-    cmbSucursal.current.value = nombre;
-  };
-
-  const selectTransporte = (nombre) => {
-    setMostrar4(false);
-    txtLinea.current.value = nombre;
-  };
-
-  const selectUso = (nombre) => {
-    setMostrar5(false);
-    txtUso.current.value = nombre;
-  };
-
-  const selectClase = (nombre) => {
-    setMostrar6(false);
-    txtClase.current.value = nombre;
-  };
-
   const selectTipo = (nombre, precio) => {
     setMostrar7(false);
     cmbTipo.current.value = nombre;
@@ -799,82 +452,6 @@ export const ModalRcv = (props) => {
     );
   };
 
-  const selecionarRegistros = async (id) => {
-    let endpoint = op.conexion + "/poliza/ConsultarUno?ID=" + id;
-    setActivate(true);
-    let bodyF = new FormData();
-    //    bodyF.append("ID", id)
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setActivate(false);
-        idPoliza.current.value = response[0].poliza_id;
-        idCliente.current.value = response[0].cliente_id;
-        idTitular.current.value = response[0].titular_id;
-        idVehiculo.current.value = response[0].vehiculo_id;
-        idCobertura.current.value = response[0].nota_id;
-        TxtTipoContrato.current.value = response[0].contrato_nombre;
-        txtDesde.current.value = response[0].poliza_fechaInicio;
-        txtHasta.current.value = response[0].poliza_fechaVencimiento;
-        var cedula = response[0].cliente_cedula.split("-");
-        cmbNacionalidad.current.value = cedula[0] + "-";
-        txtCedula.current.value = cedula[1];
-        txtNombre.current.value = response[0].cliente_nombre;
-        txtApellido.current.value = response[0].cliente_apellido;
-        txtFechaNaci.current.value = response[0].cliente_fechaNacimiento;
-        var telefono = response[0].cliente_telefono.split("-");
-        cmbTelefono.current.value = telefono[0] + "-";
-        txtTelefono.current.value = telefono[1];
-        txtCorreo.current.value = response[0].cliente_correo;
-        txtDirec.current.value = response[0].cliente_direccion;
-        if (!response[0].estado_nombre) {
-          cmbEstado.current.value = "Portuguesa";
-        } else {
-          cmbEstado.current.value = response[0].estado_nombre;
-        }
-        txtAcesor.current.value = response[0].usuario_nombre;
-        cmbSucursal.current.value = response[0].sucursal_nombre;
-        if (!response[0].linea_nombre) {
-          txtLinea.current.value = "";
-        } else {
-          txtLinea.current.value = response[0].linea_nombre;
-        }
-        var cedulaTitular = response[0].titular_cedula.split("-");
-        cmbNacionalidadTitular.current.value = cedulaTitular[0] + "-";
-        txtCedulatTitular.current.value = cedulaTitular[1];
-        txtNombreTitular.current.value = response[0].titular_nombre;
-        txtApellidoTitular.current.value = response[0].titular_apellido;
-        txtPlaca.current.value = response[0].vehiculo_placa;
-        txtPuesto.current.value = response[0].vehiculo_puesto;
-        txtUso.current.value = response[0].usoVehiculo_nombre;
-        txtAño.current.value = response[0].vehiculo_año;
-        txtSerMotor.current.value = response[0].vehiculo_serialMotor;
-        txtClase.current.value = response[0].clase_nombre;
-        txtColor.current.value = response[0].color_nombre;
-        txtSerCarroceria.current.value = response[0].vehiculo_serialCarroceria;
-        cmbTipo.current.value = response[0].tipoVehiculo_nombre;
-        txtModelo.current.value = response[0].modelo_nombre;
-        txtMarca.current.value = response[0].marca_nombre;
-        txtPeso.current.value = response[0].vehiculo_peso;
-        txtCapTon.current.value = response[0].vehiculo_capTon;
-        cmbFormaPago.current.value = response[0].nota_tipoPago;
-        txtReferencia.current.value = response[0].nota_referencia;
-        txtDolar.current.value = response[0].nota_monto;
-        txtBs.current.value = (response[0].nota_monto * dolarbcv).toFixed(2);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
-
   return (
     <Modal
       {...props}
@@ -886,21 +463,13 @@ export const ModalRcv = (props) => {
       keyboard={false}
       onShow={() => {
         setOperacion(props.operacion);
-        if (props.operacion === 2 || props.operacion === 3) {
-          selecionarRegistros(props.idCliente);
-        }
+        // if (props.operacion === 2 || props.operacion === 3) {
+        //   selecionarRegistros(props.idCliente);
+        // }
         setOperacion(props.operacion);
-        selecionarClase();
-        selecionarTipoContrato();
-        selecionarEstado();
-        selecionarAcesor();
-        selecionarSucursal();
-        selecionarTransporte();
-        selecionarUso();
-        selecionarTipo();
       }}
     >
-      <Modal.Header className="bg-azul">
+      <Modal.Header className="bg-danger">
         <Modal.Title style={{ color: "#fff" }}>
           <Modal.Title style={{ color: "#fff" }}>
             {operacion === 1
@@ -925,91 +494,7 @@ export const ModalRcv = (props) => {
         <Dimmer active={activate} inverted>
           <Loader inverted>cargando...</Loader>
         </Dimmer>
-        <CatalogoVehiculo
-          show={mostrar8}
-          onHideCancela={() => {
-            setMostrar8(false);
-          }}
-          onHideCatalogo={seleccionarVehiculo}
-        />
 
-        <CatalogoClientes
-          show={mostrar}
-          onHideCancela={() => {
-            setMostrar(false);
-          }}
-          onHideCatalogo={seleccionarCliente}
-        />
-
-        <CatalogoTitular
-          show={mostrar9}
-          onHideCancela={() => {
-            setMostrar9(false);
-          }}
-          onHideCatalogo={seleccionarTitular}
-        />
-
-        <CatalogoTipoContrato
-          records={tipoContrato}
-          show={mostrar1}
-          onHideCancela={() => {
-            setMostrar1(false);
-          }}
-          onHideCatalogo={selectTipoContrato}
-        />
-
-        <CatalogoAcesor
-          records={acesor}
-          show={mostrar2}
-          onHideCancela={() => {
-            setMostrar2(false);
-          }}
-          onHideCatalogo={selectAcesor}
-        />
-
-        <CatalogoSucursal
-          records={sucursal}
-          show={mostrar3}
-          onHideCancela={() => {
-            setMostrar3(false);
-          }}
-          onHideCatalogo={selectSucursal}
-        />
-
-        <CatalogoTransporte
-          records={transporte}
-          show={mostrar4}
-          onHideCancela={() => {
-            setMostrar4(false);
-          }}
-          onHideCatalogo={selectTransporte}
-        />
-
-        <CatalogoUso
-          records={uso}
-          show={mostrar5}
-          onHideCancela={() => {
-            setMostrar5(false);
-          }}
-          onHideCatalogo={selectUso}
-        />
-
-        <CatalogoClase
-          records={clase}
-          show={mostrar6}
-          onHideCancela={() => {
-            setMostrar6(false);
-          }}
-          onHideCatalogo={selectClase}
-        />
-        <CatalogoTipo
-          records={tipo}
-          show={mostrar7}
-          onHideCancela={() => {
-            setMostrar7(false);
-          }}
-          onHideCatalogo={selectTipo}
-        />
         <Mensaje
           mensaje={mensaje}
           onHide={() => {
@@ -1053,7 +538,6 @@ export const ModalRcv = (props) => {
           </li>
           <li class="nav-item" role="presentation">
             <a
-              onClick={(e) => selecionarPrecio(e)}
               class="nav-link"
               id="ex1-tab-3"
               data-mdb-toggle="tab"
@@ -1156,51 +640,54 @@ export const ModalRcv = (props) => {
                 >
                   Datos del contratante
                 </legend>
-                <div class="input-group input-group-sm mb-1 col-md-5">
-                  <span class="input-group-text" id="inputGroup-sizing-sm">
-                    Cedula:
-                  </span>
-                  <select
-                    disabled={operacion === 3}
-                    class="form-select col-md-3"
-                    ref={cmbNacionalidad}
-                    aria-label="Default select example"
-                  >
-                    <option value="V-">V-</option>
-                    <option value="E-">E-</option>
-                    <option value="J-">J-</option>
-                    <option value="G-">G-</option>
-                  </select>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled={operacion === 3}
-                    ref={txtCedula}
-                    onKeyDown={handleChange(9)}
-                    aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm"
-                    maxLength={9}
-                    name="ced"
-                    onChange={validaSoloNumero}
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-success"
-                    onClick={() => {
-                      setMostrar(true);
-                    }}
-                  >
-                    <i class="fa fa-search"></i>
-                  </button>
-                  <div id="ced" class="form-text hidden">
-                    Debe ingresar un cedula valida longitud(8-9).
+
+                <div class="col-md-5">
+                  <div class="input-group input-group-sm mb-1">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">
+                      Cedula:
+                    </span>
+                    <select
+                      disabled={operacion === 3}
+                      class="form-select col-md-3"
+                      ref={cmbNacionalidad}
+                      aria-label="Default select example"
+                    >
+                      <option value="V-">V-</option>
+                      <option value="E-">E-</option>
+                      <option value="J-">J-</option>
+                      <option value="G-">G-</option>
+                    </select>
+                    <input
+                      type="text"
+                      class="form-control"
+                      disabled={operacion === 3}
+                      ref={txtCedula}
+                      onKeyDown={handleChange(9)}
+                      aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm"
+                      maxLength={9}
+                      name="ced"
+                      onChange={validaSoloNumero}
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-success"
+                      onClick={() => {
+                        setMostrar(true);
+                      }}
+                    >
+                      <i class="fa fa-search"></i>
+                    </button>
+                    <div id="ced" class="form-text hidden">
+                      Debe ingresar una cédula válida (longitud 8-9).
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-3"></div>
-                <div class="col-md-4 mb-1">
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
                   <div class="input-group input-group-sm">
                     <span class="input-group-text" id="inputGroup-sizing-sm">
-                      Fecha Nacimiento
+                      Fecha de Nacimiento
                     </span>
                     <input
                       disabled={operacion === 3}
@@ -1213,7 +700,7 @@ export const ModalRcv = (props) => {
                     />
                   </div>
                   <div id="fecha" class="form-text hidden">
-                    Debe ingresar fecha valida
+                    Debe ingresar una fecha válida.
                   </div>
                 </div>
 
@@ -1251,7 +738,7 @@ export const ModalRcv = (props) => {
                     />
                   </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                   <div class="input-group input-group-sm mb-2">
                     <span class="input-group-text" id="inputGroup-sizing-sm">
                       Telefono
@@ -1278,7 +765,7 @@ export const ModalRcv = (props) => {
                     />
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="input-group input-group-sm mb-2">
                     <span class="input-group-text" id="inputGroup-sizing-sm">
                       Correo
@@ -1293,7 +780,7 @@ export const ModalRcv = (props) => {
                     />
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="input-group input-group-sm mb-2">
                     <span class="input-group-text" id="inputGroup-sizing-sm">
                       Direción
@@ -1308,7 +795,7 @@ export const ModalRcv = (props) => {
                     />
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="input-group input-group-sm mb-2 ">
                     <span class="input-group-text" id="inputGroup-sizing-sm">
                       Estado:{" "}
@@ -1329,95 +816,6 @@ export const ModalRcv = (props) => {
                     </select>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div className="input-group input-group-sm mb-2">
-                    <span
-                      className="input-group-text"
-                      id="inputGroup-sizing-sm"
-                    >
-                      Acesor:{" "}
-                    </span>
-                    <input
-                      disabled
-                      type="text"
-                      className="form-control"
-                      ref={txtAcesor}
-                      aria-label="Sizing example input"
-                      aria-describedby="inputGroup-sizing-sm"
-                      defaultValue={operacion === 1 ? user : ""}
-                    />
-                    {idUser === 57 ? (
-                      <button
-                        type="button"
-                        className="btn btn-success"
-                        onClick={() => {
-                          setMostrar2(true);
-                        }}
-                      >
-                        <i className="fa fa-search"></i>
-                      </button>
-                    ) : null}
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="input-group input-group-sm mb-2 ">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">
-                      Sucursal:{" "}
-                    </span>
-
-                    <input
-                      disabled
-                      defaultValue={operacion === 1 ? suc : ""}
-                      type="text"
-                      class="form-control"
-                      ref={cmbSucursal}
-                      aria-label="Sizing example input"
-                      aria-describedby="inputGroup-sizing-sm"
-                    />
-                    {idUser === 57 ? (
-                      <button
-                        type="button"
-                        className="btn btn-success"
-                        onClick={() => {
-                          setMostrar3(true);
-                        }}
-                      >
-                        <i className="fa fa-search"></i>
-                      </button>
-                    ) : null}
-                  </div>
-                </div>
-              {/*   <div class="col-md-6">
-                  <div class="input-group input-group-sm mb-2 ">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">
-                      Linea de Transporte:{" "}
-                    </span>
-                   <select class="form-select" ref={txtLinea} aria-label="Default select example">
-
-                      {transporte && transporte.map((item, index) => (
-                        <option key={index} value={item.transporte_id} > {item.transporte_nombre} </option>
-                      ))}
-                    </select>
-
-                    <input
-                      disabled
-                      type="text"
-                      class="form-control"
-                      ref={txtLinea}
-                      aria-label="Sizing example input"
-                      aria-describedby="inputGroup-sizing-sm"
-                    />
-                    <button
-                      type="button"
-                      class="btn btn-success"
-                      onClick={() => {
-                        setMostrar4(true);
-                      }}
-                    >
-                      <i class="fa fa-search"></i>
-                    </button>
-                  </div>
-                </div>*/}
               </fieldset>
               <fieldset class="border rounded-3 p-3 row mx-auto">
                 <legend

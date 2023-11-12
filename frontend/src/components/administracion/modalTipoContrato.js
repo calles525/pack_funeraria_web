@@ -133,13 +133,13 @@ export const ModalTipoContrato = (props) => {
     let bodyF = new FormData();
 
     if (operacion === 1) {
-      endpoint = op.conexion + "/tipo_contrato/registrar";
+      endpoint = op.conexion + "/tipo_contrato_rcv/registrar";
     } else if (operacion === 2) {
-      endpoint = op.conexion + "/tipo_contrato/actualizar";
-      bodyF.append("ID", values.contrato_id);
+      endpoint = op.conexion + "/tipo_contrato_rcv/actualizar";
+      bodyF.append("ID", values.id_tipo_contrato);
     } else {
-      endpoint = op.conexion + "/tipo_contrato/eliminar";
-      bodyF.append("ID", values.contrato_id);
+      endpoint = op.conexion + "/tipo_contrato_rcv/eliminar";
+      bodyF.append("ID", values.id_tipo_contrato);
     }
     bodyF.append("token", token);
     console.log(endpoint);
@@ -331,7 +331,7 @@ export const ModalTipoContrato = (props) => {
     }
   };
   const selecionarTipoContrato = async (id) => {
-    let endpoint = op.conexion + "/tipo_contrato/ConsultarUno?ID=" + id;
+    let endpoint = op.conexion + "/tipo_contrato_rcv/ConsultarUno?ID=" + id;
     console.log(endpoint);
     setActivate(true);
 
@@ -350,27 +350,27 @@ export const ModalTipoContrato = (props) => {
         setActivate(false);
         console.log(response);
 
-        txtDescripcion.current.value = response.contrato_nombre;
+        txtDescripcion.current.value = response.des_tipo_contrato;
         txtDanoaCosa.current.value = formatMoneda(
-          response.dañoCosas.toString().replace(",", "").replace(".", ","),
+          response.dano_cosas_tipo_contrato.toString().replace(",", "").replace(".", ","),
           ",",
           ".",
           2
         );
         txtDanoPer.current.value = formatMoneda(
-          response.dañoPersonas.toString().replace(",", "").replace(".", ","),
+          response.dano_persona_tipo_contrato.toString().replace(",", "").replace(".", ","),
           ",",
           ".",
           2
         );
         txtFinanzaCuan.current.value = formatMoneda(
-          response.fianzaCuanti.toString().replace(",", "").replace(".", ","),
+          response.fianza_cuanti_tipo_contrato.toString().replace(",", "").replace(".", ","),
           ",",
           ".",
           2
         );
         txtAsistenciaLegal.current.value = formatMoneda(
-          response.asistenciaLegal
+          response.asistencia_legal_tipo_contrato
             .toString()
             .replace(",", "")
             .replace(".", ","),
@@ -379,31 +379,31 @@ export const ModalTipoContrato = (props) => {
           2
         );
         txtApov.current.value = formatMoneda(
-          response.apov.toString().replace(",", "").replace(".", ","),
+          response.apov_tipo_contrato.toString().replace(",", "").replace(".", ","),
           ",",
           ".",
           2
         );
         txtMuerte.current.value = formatMoneda(
-          response.muerte.toString().replace(",", "").replace(".", ","),
+          response.muerte_tipo_contrato.toString().replace(",", "").replace(".", ","),
           ",",
           ".",
           2
         );
         txtInvalidez.current.value = formatMoneda(
-          response.invalidez.toString().replace(",", "").replace(".", ","),
+          response.invalidez_tipo_contrato.toString().replace(",", "").replace(".", ","),
           ",",
           ".",
           2
         );
         txtGastosMed.current.value = formatMoneda(
-          response.gastosMedicos.toString().replace(",", "").replace(".", ","),
+          response.gastos_medicos_tipo_contrato.toString().replace(",", "").replace(".", ","),
           ",",
           ".",
           2
         );
         txtGrua.current.value = formatMoneda(
-          response.grua.toString().replace(",", "").replace(".", ","),
+          response.grua_tipo_contrato.toString().replace(",", "").replace(".", ","),
           ",",
           ".",
           2
@@ -437,7 +437,7 @@ export const ModalTipoContrato = (props) => {
         }
       }}
     >
-      <Modal.Header className="bg-azul">
+      <Modal.Header className="bg-danger">
         <Modal.Title style={{ color: "#fff" }}>
           {operacion === 1
             ? "Registrar Tipo de Contrato"

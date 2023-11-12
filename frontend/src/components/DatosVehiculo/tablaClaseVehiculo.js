@@ -180,7 +180,7 @@ function TablaClaseVehiculo() {
     useTable(records, headCells, filterFn);
 
   const selecionarRegistros = async () => {
-    let endpoint = op.conexion + "/claseVehiculo/ConsultarTodos";
+    let endpoint = op.conexion + "/clase_vehiculo/ConsultarTodos";
     console.log(endpoint);
     setActivate(true);
 
@@ -216,8 +216,8 @@ function TablaClaseVehiculo() {
               (x.clase_id !== null
                 ? String(x.clase_id).includes(target.value)
                 : 0) ||
-              (x.clase_nombre !== null
-                ? x.clase_nombre
+              (x.des_clase_vehi !== null
+                ? x.des_clase_vehi
                     .toLowerCase()
                     .includes(target.value.toLowerCase())
                 : "")
@@ -237,7 +237,7 @@ function TablaClaseVehiculo() {
     } else {
       variable = 0;
     }
-    let endpoint = op.conexion + "/claseVehiculo/eliminar";
+    let endpoint = op.conexion + "/clase_vehiculo/eliminar";
     setActivate(true);
     let bodyF = new FormData();
     bodyF.append("ID", id);
@@ -368,19 +368,19 @@ function TablaClaseVehiculo() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.claseVehiculo_id}
+                    {item.id_clase_vehi}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.clase_nombre}
+                    {item.des_clase_vehi}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {parseInt(item.clase_estatus) === 1 ? "ACTIVO" : "INACTIVO"}
+                    {parseInt(item.estatus_vehi) === 1 ? "ACTIVO" : "INACTIVO"}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
@@ -391,7 +391,7 @@ function TablaClaseVehiculo() {
                     }}
                   >
                     <button
-                      onClick={gestionarBanco(2, item.claseVehiculo_id, "")}
+                      onClick={gestionarBanco(2, item.id_clase_vehi, "")}
                       className="btn btn-sm mx-1 btn-warning rounded-circle"
                     >
                       <i className="fa fa-edit"></i>{" "}
@@ -399,12 +399,12 @@ function TablaClaseVehiculo() {
                     <button
                       onClick={gestionarBanco(
                         8,
-                        item.claseVehiculo_id,
-                        item.clase_estatus
+                        item.id_clase_vehi,
+                        item.estatus_vehi
                       )}
                       className="btn btn-sm mx-1 btn-danger rounded-circle"
                     >
-                      {item.clase_estatus === 1 ? (
+                      {item.estatus_vehi === 1 ? (
                         <i className="fa fa-times"></i>
                       ) : (
                         <i
