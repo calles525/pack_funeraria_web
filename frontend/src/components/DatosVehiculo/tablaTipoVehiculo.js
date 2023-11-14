@@ -187,7 +187,7 @@ function TablaTipoVehiculo() {
 
   const selecionarRegistros = async () => {
     let endpoint =
-      op.conexion + "/tipo_vehiculo/ConsultarTodos?Sucursal=" + idsucursal;
+      op.conexion + "/tipo_vehiculo/ConsultarTodos";
     console.log(endpoint);
     setActivate(true);
 
@@ -220,11 +220,11 @@ function TablaTipoVehiculo() {
         else
           return items.filter((x) => {
             if (
-              (x.tipoVehiculo_id !== null
-                ? String(x.tipoVehiculo_id).includes(target.value)
+              (x.id_tipo_vehi  !== null
+                ? String(x.id_tipo_vehi ).includes(target.value)
                 : 0) ||
-              (x.tipoVehiculo_nombre !== null
-                ? x.tipoVehiculo_nombre
+              (x.des_tipo_vehi !== null
+                ? x.des_tipo_vehi
                     .toLowerCase()
                     .includes(target.value.toLowerCase())
                 : "")
@@ -333,13 +333,13 @@ function TablaTipoVehiculo() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.tipoVehiculo_id}
+                    {item.id_tipo_vehi }
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.tipoVehiculo_nombre}
+                    {item.des_tipo_vehi}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
@@ -351,7 +351,7 @@ function TablaTipoVehiculo() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {parseInt(item.tipoVehiculo_estatus) === 1
+                    {parseInt(item.estatus_tipo_vehi) === 1
                       ? "ACTIVO"
                       : "INACTIVO"}
                   </TableCell>
@@ -365,16 +365,23 @@ function TablaTipoVehiculo() {
                     }}
                   >
                     <button
-                      onClick={gestionarBanco(2, item.tipoVehiculo_id)}
+                      onClick={gestionarBanco(2, item.id_tipo_vehi )}
                       className="btn btn-sm mx-1 btn-warning rounded-circle"
                     >
                       <i className="fa fa-edit"></i>{" "}
                     </button>
                     <button
-                      onClick={gestionarBanco(3, item.tipoVehiculo_id)}
+                      onClick={gestionarBanco(3, item.id_tipo_vehi )}
                       className="btn btn-sm mx-1 btn-danger rounded-circle"
                     >
-                      <i className="fa fa-trash"></i>{" "}
+                     {item.estatus_tipo_vehi === 1 ? (
+                        <i className="fa fa-times"></i>
+                      ) : (
+                        <i
+                          className="fa fa-check"
+                          style={{ background: "none" }}
+                        ></i>
+                      )}
                     </button>
                   </TableCell>
                 </TableRow>

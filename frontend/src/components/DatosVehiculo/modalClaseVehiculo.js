@@ -108,19 +108,19 @@ export const ModalTransporte = (props) => {
 
     setActivate(true);
 
-    console.log(values.claseVehiculo_id);
+    console.log(values.id_clase_vehi);
 
     if (operacion === 1) {
-      endpoint = op.conexion + "/claseVehiculo/registrar";
+      endpoint = op.conexion + "/clase_vehiculo/registrar";
       bodyF.append("Nombre", txtDescripcion.current.value);
     } else if (operacion === 2) {
-      endpoint = op.conexion + "/claseVehiculo/actualizar";
+      endpoint = op.conexion + "/clase_vehiculo/actualizar";
       bodyF.append("Nombre", txtDescripcion.current.value);
-      bodyF.append("ID", values.claseVehiculo_id);
+      bodyF.append("ID", values.id_clase_vehi);
     } else {
-      endpoint = op.conexion + "/claseVehiculo/eliminar";
+      endpoint = op.conexion + "/clase_vehiculo/eliminar";
       bodyF.append("Nombre", txtDescripcion.current.value);
-      bodyF.append("ID", values.claseVehiculo_id);
+      bodyF.append("ID", values.id_clase_vehi);
     }
     bodyF.append("token", token);
     await fetch(endpoint, {
@@ -279,7 +279,7 @@ export const ModalTransporte = (props) => {
   };
 
   const selecionarClase = async (id) => {
-    let endpoint = op.conexion + "/claseVehiculo/ConsultarUno?ID=" + id;
+    let endpoint = op.conexion + "/clase_vehiculo/ConsultarUno?ID=" + id;
     console.log(endpoint);
     setActivate(true);
 
@@ -297,7 +297,7 @@ export const ModalTransporte = (props) => {
       .then((response) => {
         setActivate(false);
         console.log(response);
-        txtDescripcion.current.value = response.clase_nombre;
+        txtDescripcion.current.value = response.des_clase_vehi;
         setValues(response);
       })
       .catch((error) =>

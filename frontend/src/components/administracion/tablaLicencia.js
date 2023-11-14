@@ -29,32 +29,32 @@ function TablaLicencias() {
     {
       label: "Codigo",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Nombre",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Apellido",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Estatus",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
 
     {
       label: "Opciones",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
   ];
