@@ -377,7 +377,7 @@ function MenuImpuestoPP(props) {
                     </div>
                   </div>
 
-                  <div className="accordion-item  px-0">
+                  {/* <div className="accordion-item  px-0">
                     <h2 className="accordion-header" id="heading3">
                       <button
                         className="accordion-button text-light"
@@ -419,7 +419,7 @@ function MenuImpuestoPP(props) {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="accordion-item  px-0">
                     <h2 className="accordion-header" id="heading4">
                       <button

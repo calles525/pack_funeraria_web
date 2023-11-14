@@ -615,7 +615,14 @@ function TablaTipoContratos() {
                       )}
                       className="btn btn-sm mx-1 btn-danger rounded-circle"
                     >
-                      <i className="fa fa-trash"></i>{" "}
+                      {item.estatus_tipo_contrato === 1 ? (
+                        <i className="fa fa-times"></i>
+                      ) : (
+                        <i
+                          className="fa fa-check"
+                          style={{ background: "none" }}
+                        ></i>
+                      )}
                     </button>
                   </TableCell>
                 </TableRow>
