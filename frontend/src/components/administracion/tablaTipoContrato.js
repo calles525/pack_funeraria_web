@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 
 import { Mensaje } from "../mensajes";
-import { Loader, Dimmer } from "semantic-ui-react";
+import { Loader, Dimmer, Form } from "semantic-ui-react";
 import moment from "moment";
 
 import axios from "axios";
@@ -28,81 +28,81 @@ function TablaTipoContratos() {
     {
       label: "Codigo",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Nombre",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Daño Cosas",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Daño Personas",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Fianza Cuantitativa",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Asistencia Legal",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "A.P.O.V.",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Muerte",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Invalidez",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Gastos Medicos",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
 
     {
       label: "Grua y Estacionamiento",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Status",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
 
     {
       label: "Opciones",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
   ];
@@ -234,8 +234,45 @@ function TablaTipoContratos() {
   const { TblContainer, TblHead, recordsAfterPagingAndSorting, TblPagination } =
     useTable(records, headCells, filterFn);
 
+  const cambiarEstatus = async (id, estatus) => {
+    var variable;
+    if (estatus == 0) {
+      variable = 1;
+    } else {
+      variable = 0;
+    }
+    let endpoint = op.conexion + "/tipo_contrato_rcv/eliminar";
+    setActivate(true);
+    let bodyF = new FormData();
+    bodyF.append("ID", id);
+    bodyF.append("Estatus", variable);
+    bodyF.append("token", token);
+    await fetch(endpoint, {
+      method: "POST",
+      body: bodyF,
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        setActivate(false);
+        setMensaje({
+          mostrar: true,
+          titulo: "Exito.",
+          texto: "Estatus Modificado",
+          icono: "exito",
+        });
+      })
+      .catch((error) =>
+        setMensaje({
+          mostrar: true,
+          titulo: "Notificación",
+          texto: error.res,
+          icono: "informacion",
+        })
+      );
+    selecionarRegistros();
+  };
   const selecionarRegistros = async () => {
-    let endpoint = op.conexion + "/tipo_contrato/ConsultarTodos";
+    let endpoint = op.conexion + "/tipo_contrato_rcv/ConsultarTodos";
     console.log(endpoint);
     setActivate(true);
 
@@ -268,11 +305,11 @@ function TablaTipoContratos() {
         else
           return items.filter((x) => {
             if (
-              (x.contrato_id !== null
-                ? String(x.contrato_id).includes(target.value)
+              (x.id_tipo_contrato !== null
+                ? String(x.id_tipo_contrato).includes(target.value)
                 : 0) ||
-              (x.contrato_nombre !== null
-                ? x.contrato_nombre
+              (x.des_tipo_contrato !== null
+                ? x.des_tipo_contrato
                     .toLowerCase()
                     .includes(target.value.toLowerCase())
                 : "")
@@ -295,11 +332,15 @@ function TablaTipoContratos() {
     setMensaje({ mostrar: false, titulo: "", texto: "", icono: "" });
   };
 
-  const gestionarBanco = (op, id) => (e) => {
+  const gestionarBanco = (op, id, estatus) => (e) => {
     e.preventDefault();
-    setOperacion(op);
-    setMostrar(true);
-    setIdTipoContrato(id);
+    if (op === 8) {
+      cambiarEstatus(id, estatus);
+    } else {
+      setOperacion(op);
+      setMostrar(true);
+      setIdTipoContrato(id);
+    }
   };
   return (
     <div className="col-md-12 mx-auto p-2">
@@ -364,7 +405,7 @@ function TablaTipoContratos() {
 
           <div className="col-3 d-flex justify-content-end">
             <button
-              onClick={gestionarBanco(1, "")}
+              onClick={gestionarBanco(1, "", "")}
               className="btn btn-sm btn-primary rounded-circle"
             >
               <i className="fas fa-plus"></i>{" "}
@@ -381,22 +422,22 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.contrato_id}
+                    {item.id_tipo_contrato}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "left", alignItems: "center" }}
                   >
-                    {item.contrato_nombre}
+                    {item.des_tipo_contrato}
                   </TableCell>
 
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.dañoCosas
+                    {item.dano_cosas_tipo_contrato
                       ? formatMoneda(
-                          item.dañoCosas
+                          item.dano_cosas_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -411,9 +452,9 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.dañoPersonas
+                    {item.dano_persona_tipo_contrato
                       ? formatMoneda(
-                          item.dañoPersonas
+                          item.dano_persona_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -428,9 +469,9 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.fianzaCuanti
+                    {item.fianza_cuanti_tipo_contrato
                       ? formatMoneda(
-                          item.fianzaCuanti
+                          item.fianza_cuanti_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -445,9 +486,9 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.asistenciaLegal
+                    {item.asistencia_legal_tipo_contrato
                       ? formatMoneda(
-                          item.asistenciaLegal
+                          item.asistencia_legal_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -462,9 +503,9 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.apov
+                    {item.apov_tipo_contrato
                       ? formatMoneda(
-                          item.apov
+                          item.apov_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -479,9 +520,9 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.muerte
+                    {item.muerte_tipo_contrato
                       ? formatMoneda(
-                          item.muerte
+                          item.muerte_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -496,9 +537,9 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.invalidez
+                    {item.invalidez_tipo_contrato
                       ? formatMoneda(
-                          item.invalidez
+                          item.invalidez_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -513,9 +554,9 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.gastosMedicos
+                    {item.gastos_medicos_tipo_contrato
                       ? formatMoneda(
-                          item.gastosMedicos
+                          item.gastos_medicos_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -530,9 +571,9 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.grua
+                    {item.grua_tipo_contrato
                       ? formatMoneda(
-                          item.grua
+                          item.grua_tipo_contrato
                             .toString()
                             .replace(",", "")
                             .replace(".", ","),
@@ -547,7 +588,7 @@ function TablaTipoContratos() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {parseInt(item.contrato_estatus) === 1
+                    {parseInt(item.estatus_tipo_contrato) === 1
                       ? "ACTIVO"
                       : "INACTIVO"}
                   </TableCell>
@@ -561,16 +602,27 @@ function TablaTipoContratos() {
                     }}
                   >
                     <button
-                      onClick={gestionarBanco(2, item.contrato_id)}
+                      onClick={gestionarBanco(2, item.id_tipo_contrato, "")}
                       className="btn btn-sm mx-1 btn-warning rounded-circle"
                     >
                       <i className="fa fa-edit"></i>{" "}
                     </button>
                     <button
-                      onClick={gestionarBanco(3, item.contrato_id)}
+                      onClick={gestionarBanco(
+                        8,
+                        item.id_tipo_contrato,
+                        item.estatus_tipo_contrato
+                      )}
                       className="btn btn-sm mx-1 btn-danger rounded-circle"
                     >
-                      <i className="fa fa-trash"></i>{" "}
+                      {item.estatus_tipo_contrato === 1 ? (
+                        <i className="fa fa-times"></i>
+                      ) : (
+                        <i
+                          className="fa fa-check"
+                          style={{ background: "none" }}
+                        ></i>
+                      )}
                     </button>
                   </TableCell>
                 </TableRow>

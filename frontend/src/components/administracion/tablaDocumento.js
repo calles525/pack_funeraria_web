@@ -28,19 +28,19 @@ function TablaDocumento() {
     {
       label: "N° de documento",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Nombre",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Imprimir",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
   ];

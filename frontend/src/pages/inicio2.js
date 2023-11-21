@@ -48,56 +48,43 @@ function Inicio2() {
     {
       label: "N° Contrato",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Fecha Vencimiento",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "C.I/R.I.F.",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Benefeciario",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Telefono",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
     {
       label: "Placa",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
-    {
-      label: "Acesor",
-      textAlign: "center",
-      backgroundColor: "#008674",
-      color: "white",
-    },
-    {
-      label: "Sucursal",
-      textAlign: "center",
-      backgroundColor: "#008674",
-      color: "white",
-    },
-
     {
       label: "Opciones",
       textAlign: "center",
-      backgroundColor: "#008674",
+      backgroundColor: "#e70101bf",
       color: "white",
     },
   ];
@@ -353,41 +340,6 @@ function Inicio2() {
     setMostrar3(true);
   };
 
-  const datisPersona = async () => {
-    let endpoint = op.conexion + "/Auth/get_preguntas_from_user";
-    console.log(endpoint);
-    setActivate(true);
-
-    //setLoading(false);
-    let username = JSON.parse(localStorage.getItem("username"));
-    console.log(username);
-
-    let bodyF = new FormData();
-
-    bodyF.append("Usuario", username.toUpperCase().toString());
-
-    await fetch(endpoint, {
-      method: "POST",
-      body: bodyF,
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response.res);
-        if (response.res === "No hay registros disponibles") {
-          setMostrar7(true);
-          setOpPreguntas(1);
-        }
-        setActivate(false);
-      })
-      .catch((error) =>
-        setMensaje({
-          mostrar: true,
-          titulo: "Notificación",
-          texto: error.res,
-          icono: "informacion",
-        })
-      );
-  };
 
   return (
     <div className="col-md-12 mx-auto p-2">
@@ -399,15 +351,6 @@ function Inicio2() {
           setMostrar7(false);
         }}
       />
-
-      <ModalCertificadoMedico
-        //es show sirve para abrir el modal con setVariable cambias el valor de la variable de estado estado true abre el modal false lo cierra
-        show={mostrar}
-        onHideCancela={() => {
-          setMostrar(false);
-        }}
-      />
-
       <ModalRcv
         operacion={operacion}
         show={mostrar2}
@@ -441,13 +384,7 @@ function Inicio2() {
         idCliente={idCliente}
       />
 
-      <ModalLicencia
-        show={mostrar4}
-        onHideCancela={() => {
-          setMostrar4(false);
-        }}
-        idCliente={idCliente}
-      />
+      
 
       <div className="col-12 py-2">
         <div className="col-12 row d-flex justify-content-between py-2 mt-5 mb-3">
@@ -499,21 +436,6 @@ function Inicio2() {
           />
 
           <div className="col-6 d-flex justify-content-end">
-           {/* <button
-              type="button"
-              class="btn btn-primary btn-sm mx-1"
-              onClick={gestionarRcv(3)}
-            >
-              <i class="fa fa-plus"></i> Licencia
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-primary btn-sm mx-1"
-              onClick={gestionarRcv(2)}
-            >
-              <i class="fa fa-plus"></i> Certificado Medico
-      </button>*/}
             <button
               type="button"
               class="btn btn-primary btn-sm mx-1"
@@ -539,45 +461,32 @@ function Inicio2() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {formatDate(item.poliza_fechaVencimiento)}
+                    {formatDate(item.a)}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.cliente_cedula}
+                    {item.a}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.cliente_nombre}
+                    {item.a}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.cliente_telefono}
+                    {item.a}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.vehiculo_placa}
+                    {item.a}
                   </TableCell>
-                  <TableCell
-                    className="align-baseline"
-                    style={{ textAlign: "center", alignItems: "center" }}
-                  >
-                    {item.usuario_nombre}
-                  </TableCell>
-                  <TableCell
-                    className="align-baseline"
-                    style={{ textAlign: "center", alignItems: "center" }}
-                  >
-                    {item.sucursal_nombre}
-                  </TableCell>
-
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}

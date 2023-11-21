@@ -124,7 +124,7 @@ function TablaUsoVehiculo() {
     useTable(records, headCells, filterFn);
 
   const selecionarRegistros = async () => {
-    let endpoint = op.conexion + "/usoVehiculo/ConsultarTodos";
+    let endpoint = op.conexion + "/uso_vehiculo/ConsultarTodos";
     console.log(endpoint);
     setActivate(true);
 
@@ -213,11 +213,11 @@ function TablaUsoVehiculo() {
         else
           return items.filter((x) => {
             if (
-              (x.usoVehiculo_id !== null
-                ? String(x.usoVehiculo_id).includes(target.value)
+              (x.id_uso_vehi !== null
+                ? String(x.id_uso_vehi).includes(target.value)
                 : 0) ||
-              (x.usoVehiculo_nombre !== null
-                ? x.usoVehiculo_nombre
+              (x.des_uso_vehi !== null
+                ? x.des_uso_vehi
                     .toLowerCase()
                     .includes(target.value.toLowerCase())
                 : "")
@@ -246,7 +246,7 @@ function TablaUsoVehiculo() {
     } else {
       variable = 0;
     }
-    let endpoint = op.conexion + "/usoVehiculo/eliminar";
+    let endpoint = op.conexion + "/uso_vehiculo/eliminar";
     setActivate(true);
     let bodyF = new FormData();
     bodyF.append("ID", id);
@@ -368,19 +368,19 @@ function TablaUsoVehiculo() {
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.usoVehiculo_id}
+                    {item.id_uso_vehi}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {item.usoVehiculo_nombre}
+                    {item.des_uso_vehi}
                   </TableCell>
                   <TableCell
                     className="align-baseline"
                     style={{ textAlign: "center", alignItems: "center" }}
                   >
-                    {parseInt(item.usoVehiculo_estatus) === 1
+                    {parseInt(item.estatus_uso_vehi) === 1
                       ? "ACTIVO"
                       : "INACTIVO"}
                   </TableCell>
@@ -394,7 +394,7 @@ function TablaUsoVehiculo() {
                     }}
                   >
                     <button
-                      onClick={gestionarBanco(2, item.usoVehiculo_id, "")}
+                      onClick={gestionarBanco(2, item.id_uso_vehi, "")}
                       className="btn btn-sm mx-1 btn-warning rounded-circle"
                     >
                       <i className="fa fa-edit"></i>{" "}
@@ -402,12 +402,12 @@ function TablaUsoVehiculo() {
                     <button
                       onClick={gestionarBanco(
                         8,
-                        item.usoVehiculo_id,
-                        item.usoVehiculo_estatus
+                        item.id_uso_vehi,
+                        item.estatus_uso_vehi
                       )}
                       className="btn btn-sm mx-1 btn-danger rounded-circle"
                     >
-                      {item.usoVehiculo_estatus === 1 ? (
+                      {item.estatus_uso_vehi === 1 ? (
                         <i className="fa fa-times"></i>
                       ) : (
                         <i
