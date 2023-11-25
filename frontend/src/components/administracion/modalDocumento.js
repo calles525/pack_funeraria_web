@@ -291,7 +291,7 @@ export const ModalDocumento = (props) => {
         setOperacion(props.operacion);
       }}
     >
-      <Modal.Header className="bg-azul">
+      <Modal.Header className="bg-danger">
         <Modal.Title style={{ color: "#fff" }}>
           {operacion === 1
             ? "Registrar documento"

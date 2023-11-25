@@ -13,22 +13,22 @@ import MenuNuevo from "./menuNuevo";
 import logo from "../imagenes/logo1.png";
 import moment from "moment";
 import TablaContratosRealizados from "../components/administracion/tablaContratosRealizados";
-import TablaSursales from "../components/administracion/tablaSucursales";
+// import TablaSursales from "../components/administracion/tablaSucursales";
 import TablaTipoContratos from "../components/administracion/tablaTipoContrato";
 import TablaUsoVehiculo from "../components/DatosVehiculo/tablaUsoVehiculo";
 import TablaClaseVehiculo from "../components/DatosVehiculo/tablaClaseVehiculo";
-import TablaTransporte from "../components/DatosVehiculo/tablaTransporte";
+// import TablaTransporte from "../components/DatosVehiculo/tablaTransporte";
 import TablaUsuarios from "../components/datosUsuario/tablaUsuarios";
 import TablaRoles from "../components/datosUsuario/tablaRoles";
-import TablaCertificado from "../components/medico/tablaCertificado";
-import TablaClumpeañeros from "../components/cumpleañeros/tablaCumpleañeros";
+// import TablaCertificado from "../components/medico/tablaCertificado";
+// import TablaClumpeañeros from "../components/cumpleañeros/tablaCumpleañeros";
 import GraficosIngresos from "../components/graficas/graficaIngresoEgreso";
 import TablaTipoVehiculo from "../components/DatosVehiculo/tablaTipoVehiculo";
 import TablaReportes from "../components/reportes/reportes";
-import TablaMorosos from "../components/administracion/tablaMorosos";
-import TablaTipoVehiculoBocono from "../components/DatosVehiculo/tablaTipoVehiculoBocono";
-import TablaLicencia from "../components/licencia/tablaLicencia";
-import TablaDocumento from "../components/administracion/tablaDocumento";
+// import TablaMorosos from "../components/administracion/tablaMorosos";
+// import TablaTipoVehiculoBocono from "../components/DatosVehiculo/tablaTipoVehiculoBocono";
+// import TablaLicencia from "../components/licencia/tablaLicencia";
+// import TablaDocumento from "../components/administracion/tablaDocumento";
 import TablaGastos from "../components/gastosPersonales/tablaGastos";
 import Panel from "./panel";
 import TablaPrecio from "../components/listaPrecios/tablaPrecios";
@@ -197,12 +197,15 @@ function MenuImpuestoPP(props) {
             {/* <Sidebar onCambiar={cambiar} />*/}
             <div id="sidebar-wrapper">
               <div className="sidebar-heading text-center  bluez-text fs-4 fw-bold text-uppercase border-bottom">
-               {/* <div className="row mx-auto">
+                {/* <div className="row mx-auto">
                   <img className="mx-auto" style={{ width: 190 }} src={logo} />
   </div>*/}
-  <div className="h-100 d-flex text-light justify-content-center m-2">
-                    <i class="fas fa-user-circle" style={{fontSize:'80px'}}></i>
-                    </div>
+                <div className="h-100 d-flex text-light justify-content-center m-2">
+                  <i
+                    class="fas fa-user-circle"
+                    style={{ fontSize: "80px" }}
+                  ></i>
+                </div>
                 <h5 className="m-0 second-text text-light mt-3">{sucursal}</h5>
                 <h5 className="m-0 second-text text-light">{username}</h5>
                 <h5 className="m-0 second-text text-light">
@@ -321,7 +324,7 @@ function MenuImpuestoPP(props) {
                           <span>Licencias</span>
                         </a> */}
 
-                       {/* <a
+                        {/* <a
                           href="/chats"
                           className="list-group-item list-group-item-action py-2 ripple"
                         >
@@ -402,7 +405,7 @@ function MenuImpuestoPP(props) {
                     </div>
                   </div>
 
-                  <div className="accordion-item  px-0">
+                  {/* <div className="accordion-item  px-0">
                     <h2 className="accordion-header" id="heading3">
                       <button
                         className="accordion-button text-light"
@@ -444,7 +447,7 @@ function MenuImpuestoPP(props) {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="accordion-item  px-0">
                     <h2 className="accordion-header" id="heading4">
                       <button
@@ -485,7 +488,7 @@ function MenuImpuestoPP(props) {
                     </div>
                   </div>
                 </div>
-               {/* <a
+                {/* <a
                   href="/certificadomedico"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
                 >
@@ -493,7 +496,7 @@ function MenuImpuestoPP(props) {
 
                   <span>Certificado Medico</span>
                         </a>*/}
-              { /* <a
+                {/* <a
                   href="/reporteSemanal"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
                 >
@@ -507,7 +510,7 @@ function MenuImpuestoPP(props) {
                   <i className="fas fa-fw me-1 fa-print " />
                   <span>Reportes</span>
                 </a>
-              {/*  <a
+                {/*  <a
                   href="/licencia"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
                 >
@@ -523,7 +526,7 @@ function MenuImpuestoPP(props) {
 
                   <span>Cumpleañeros</span>
                 </a>*/}
-               {/* <a
+                {/* <a
                   href="/panel"
                   className=" list-group-item list-group-item-action text-light bg-transparent py-2 px-3"
                 >
@@ -560,7 +563,7 @@ function MenuImpuestoPP(props) {
                 path="/contratosrealizadosrcv"
                 component={TablaContratosRealizados}
               />
-             {/* <AuthRoute exact path="/sucursales" component={TablaSursales} />*/}
+              {/* <AuthRoute exact path="/sucursales" component={TablaSursales} />*/}
               <AuthRoute
                 exact
                 path="/tipocontratosrcv"
@@ -576,10 +579,10 @@ function MenuImpuestoPP(props) {
                 path="/clasevehiculo"
                 component={TablaClaseVehiculo}
               />
-           {/*   <AuthRoute exact path="/transporte" component={TablaTransporte} />*/}
+              {/*   <AuthRoute exact path="/transporte" component={TablaTransporte} />*/}
               <AuthRoute exact path="/usarios" component={TablaUsuarios} />
               <AuthRoute exact path="/roles" component={TablaRoles} />
-             {/* <AuthRoute
+              {/* <AuthRoute
                 exact
                 path="/certificadomedico"
                 component={TablaCertificado}
@@ -599,19 +602,19 @@ function MenuImpuestoPP(props) {
                 path="/tipovehiculo"
                 component={TablaTipoVehiculo}
               />
-             {/* <AuthRoute
+              {/* <AuthRoute
                 exact
                 path="/tipovehiculobocono"
                 component={TablaTipoVehiculoBocono}
                         />*/}
-              <AuthRoute exact path="/licencia" component={TablaLicencia} />
+              {/* <AuthRoute exact path="/licencia" component={TablaLicencia} /> */}
               <AuthRoute exact path="/reportes" component={TablaReportes} />
-             {/* <AuthRoute exact path="/morosos" component={TablaMorosos} />*/}
-              <AuthRoute exact path="/documento" component={TablaDocumento} />
-             {/* <AuthRoute exact path="/panel" component={Panel} /> */}
-             {/*  <AuthRoute exact path="/listaPrecios" component={TablaPrecio} />
+              {/* <AuthRoute exact path="/morosos" component={TablaMorosos} />*/}
+              {/* <AuthRoute exact path="/documento" component={TablaDocumento} /> */}
+              {/* <AuthRoute exact path="/panel" component={Panel} /> */}
+              {/*  <AuthRoute exact path="/listaPrecios" component={TablaPrecio} />
              <AuthRoute exact path="/licencias" component={TablaLicencias} /> */}
-             {/* <AuthRoute exact path="/chats" component={PageChats} />
+              {/* <AuthRoute exact path="/chats" component={PageChats} />
               <AuthRoute
                 exact
                 path="/reporteSemanal"

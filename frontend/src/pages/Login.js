@@ -28,8 +28,8 @@ function Login(props) {
   });
 
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
-    username: "mfigueroa",
-    password: "+11078879*",
+    username: "Admin",
+    password: "1234",
   });
 
   useEffect(() => {
@@ -85,7 +85,7 @@ function Login(props) {
     console.log(endpoint);
     setActivate(true);
     var login = values.username;
-    var passwd = values.password;
+    var password = values.password;
 
     // let body = {
     //   Usuario: login,
@@ -96,8 +96,8 @@ function Login(props) {
 
     let bodyF = new FormData();
 
-    bodyF.append("Usuario", login);
-    bodyF.append("Clave", passwd);
+    bodyF.append("Username", login);
+    bodyF.append("Password", password);
 
     await fetch(endpoint, {
       method: "POST",
@@ -115,10 +115,10 @@ function Login(props) {
         setActivate(false);
 
         if (response.data.res.code == 200) {
-          localStorage.setItem(
-            "rol",
-            JSON.stringify(response.data.usuario[0].rol)
-          );
+          // localStorage.setItem(
+          //   "rol",
+          //   JSON.stringify(response.data.usuario[0].rol)
+          // );
           localStorage.setItem(
             "user_id",
             JSON.stringify(response.data.usuario[0].user_id)
@@ -131,14 +131,14 @@ function Login(props) {
             "permisos",
             JSON.stringify(response.data.usuario[0].permisos)
           );
-          localStorage.setItem(
-            "idsucursal",
-            JSON.stringify(response.data.usuario[1].id)
-          );
-          localStorage.setItem(
-            "sucursal",
-            JSON.stringify(response.data.usuario[1].name)
-          );
+          // localStorage.setItem(
+          //   "idsucursal",
+          //   JSON.stringify(response.data.usuario[1].id)
+          // );
+          // localStorage.setItem(
+          //   "sucursal",
+          //   JSON.stringify(response.data.usuario[1].name)
+          // );
           
           setMensaje({
             mostrar: true,
@@ -362,99 +362,7 @@ function Login(props) {
         
         </footer>
       </div>
-     {/* <div class="container-fluid ps-md-0">
-        <Dimmer active={loading} inverted>
-          <Loader inverted>cargando...</Loader>
-        </Dimmer>
-        <div class="row g-0">
-          <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
-            <video controls>
-              <source
-                src="./servialca.mp4"
-                width="100%"
-                height="100%"
-                loop
-                autoplay
-                controls
-                type="video/mp4"
-              />
-              Tu navegador no soporta la reproducción de video.
-            </video>
-          </div>
-          <div class="col-md-8 col-lg-6">
-            <div class="login d-flex align-items-center ">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-9 col-lg-8 mx-auto">
-                    <div
-                      className=" img-fluid mx-auto logo-login"
-                      style={{ height: 120, width: 280 }}
-                    ></div>
-
-                    <h3 class="login-heading text-center fw-bold mb-4">
-                      {" "}
-                      Sistema de Servial C.A
-                    </h3>
-
-                    <form onSubmit={onSubmit}>
-                      <div class="form-floating mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          required
-                          autoComplete="off"
-                          name="username"
-                          value={values.username}
-                          onChange={onChange}
-                        />
-                        <label for="floatingInput">Usuario</label>
-                      </div>
-                      <div class="form-floating mb-3">
-                        <input
-                          type="password"
-                          class="form-control text-uppercase"
-                          required
-                          autoComplete="off"
-                          name="password"
-                          value={values.password}
-                          onChange={onChange}
-                          maxLength={10}
-                        />
-                        <label for="floatingPassword">Contraseña</label>
-                      </div>
-
-                      <div class="d-grid">
-                        <button
-                          class="btn rounded-pill btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
-                          type="submit"
-                        >
-                          Ingresar
-                        </button>
-                        <div class="text-center">
-                          <a
-                            class="small"
-                            type="button"
-                            onClick={() => {
-                              setMostrar(true);
-                            }}
-                          >
-                            <h6>Recuperar Contraseña</h6>
-                          </a>
-                        </div>
-                        <div class="text-center">
-                          <a class="small" type="button" href="/">
-                            <h6>Salir al Inicio</h6>
-                          </a>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>*/}
+     
     </div>
   );
 }

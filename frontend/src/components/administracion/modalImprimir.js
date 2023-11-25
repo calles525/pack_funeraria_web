@@ -316,7 +316,7 @@ export const ModalImprimir = (props) => {
         }
       }}
     >
-      <Modal.Header className="bg-azul">
+      <Modal.Header className="bg-danger">
         <Modal.Title style={{ color: "#fff" }}>Tipo De Reporte </Modal.Title>
         <button
           ref={btnCancela}

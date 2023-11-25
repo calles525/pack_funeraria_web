@@ -3,7 +3,7 @@ import { AuthContext } from "../context/auth";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
-import { ModalHist } from '../components/componentesIglesia/reportes/modalHistLocal'
+// import { ModalHist } from '../components/componentesIglesia/reportes/modalHistLocal'
 
 function Sidebar(props) {
   //let token = localStorage.getItem("jwtToken");
@@ -369,11 +369,11 @@ function Sidebar(props) {
         </a>
       </div>
 
-      <ModalHist
+      {/* <ModalHist
         show={histCuentasLocal}
         onHideCancela={() => { setHistCuentasLocal(false) }}
         imprimirHistLocal={imprimirHistLocal}
-      />
+      /> */}
     </div>
   );
 
