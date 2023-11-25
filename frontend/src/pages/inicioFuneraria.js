@@ -29,8 +29,9 @@ import { ModalConsultarPoliza } from "../components/administracion/modalConsulta
 import { ModalRenovarPoliza } from "../components/administracion/modalRenovar";
 import { formatMoneda, validaMonto, formatoMonto } from "../util/varios";
 import { GestionarPreguntas } from "../components/configuracion/preguntasSeguridad";
+import { ModalFuneraria } from "../components/administracion/modalContratoFuneraria";
 
-function Inicio2() {
+function InicioFuneraria() {
   var op = require("../modulos/datos");
   let token = localStorage.getItem("jwtToken");
   const user_id = JSON.parse(localStorage.getItem("user_id"));
@@ -208,12 +209,6 @@ function Inicio2() {
       },
     },
   };
-
-  const formatDate = (dateString) => {
-    // Usa moment.js para formatear la fecha
-    return moment(dateString).format("DD-MM-YYYY"); // Formato "día-mes-año"
-  };
-  
 
   const labels = [
     "Lunes",
@@ -406,15 +401,9 @@ function Inicio2() {
         }}
       />
 
-      <ModalCertificadoMedico
-        //es show sirve para abrir el modal con setVariable cambias el valor de la variable de estado estado true abre el modal false lo cierra
-        show={mostrar}
-        onHideCancela={() => {
-          setMostrar(false);
-        }}
-      />
+      
 
-      <ModalRcv
+      <ModalFuneraria
         operacion={operacion}
         show={mostrar2}
         onHideCancela={() => {
@@ -447,17 +436,10 @@ function Inicio2() {
         idCliente={idCliente}
       />
 
-      <ModalLicencia
-        show={mostrar4}
-        onHideCancela={() => {
-          setMostrar4(false);
-        }}
-        idCliente={idCliente}
-      />
 
       <div className="col-12 py-2">
         <div className="col-12 row d-flex justify-content-between py-2 mt-5 mb-3">
-          <h2 className=" col-5 text-light">RCV QUE ESTAN POR VENCER</h2>
+          <h2 className=" col-5 text-light">CONTRATOS FUNERARIAS</h2>
           <div class="input-group input-group-sm col-md-4 my-auto">
             <span
               class="input-group-text bg-transparent border-0 fw-bold text-light"
@@ -525,7 +507,7 @@ function Inicio2() {
               class="btn btn-primary btn-sm mx-1"
               onClick={gestionarRcv(1)}
             >
-              <i class="fa fa-plus"></i> Crear RCV
+              <i class="fa fa-plus"></i> Crear Contrato
             </button>
           </div>
         </div>
@@ -631,4 +613,8 @@ function Inicio2() {
   );
 }
 
-export default Inicio2;
+export default InicioFuneraria;
+const formatDate = (dateString) => {
+  // Usa moment.js para formatear la fecha
+  return moment(dateString).format("DD-MM-YYYY"); // Formato "día-mes-año"
+};

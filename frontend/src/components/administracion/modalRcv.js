@@ -1293,7 +1293,7 @@ export const ModalRcv = (props) => {
                     />
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-12">
                   <div class="input-group input-group-sm mb-2">
                     <span class="input-group-text" id="inputGroup-sizing-sm">
                       Direción

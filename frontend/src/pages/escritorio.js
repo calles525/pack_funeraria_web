@@ -35,6 +35,7 @@ import TablaPrecio from "../components/listaPrecios/tablaPrecios";
 import TablaLicencias from "../components/administracion/tablaLicencia";
 import PageChats from "../components/chat/chats";
 import ReportesSemanal from "../components/reportes/resportes";
+import InicioFuneraria from "./inicioFuneraria";
 function MenuImpuestoPP(props) {
   //let token = localStorage.getItem("jwtToken");
   //let op = require("../modulos/datos");
@@ -209,14 +210,23 @@ function MenuImpuestoPP(props) {
                 </h5>
               </div>
               <div className="list-group list-group-flush mx-3 mt-4 px-0">
-                <a
-                  href="/inicio"
+              <a
+                  href="/iniciofuneraria"
                   className="list-group-item list-group-item-action py-2 ripple active rounded"
                   aria-current="true"
                 >
                   <i className="fas fa-tachometer-alt fa-fw me-1" />
-                  <span>Panel de Control</span>
+                  <span>Panel Funeraria</span>
                 </a>
+                <a
+                  href="/iniciorcv"
+                  className="list-group-item list-group-item-action py-2 ripple active rounded"
+                  aria-current="true"
+                >
+                  <i className="fas fa-tachometer-alt fa-fw me-1" />
+                  <span>Panel RCV</span>
+                </a>
+               
                 <div className="accordion  px-0 border-0" id="accordionExample">
                   {/* {permisos.includes("contratosrealizados") || permisos.includes("listasucursales") || permisos.includes("tipocontratos") && */}
                   <div className="accordion-item  px-0">
@@ -252,20 +262,38 @@ function MenuImpuestoPP(props) {
                         )*/}
                         {permisos.substring(1, 2) === "1" && (
                           <a
-                            href="/contratosrealizados"
+                            href="/contratosrealizadosrcv"
                             className="list-group-item list-group-item-action py-2 ripple"
                           >
                             <i class="fas fas-fw me-1 fa-file-signature"></i>
-                            <span>Contratos Realizados</span>
+                            <span>Contratos RCV</span>
+                          </a>
+                        )}
+                        {permisos.substring(1, 2) === "1" && (
+                          <a
+                            href="/contratosrealizadosfuneraria"
+                            className="list-group-item list-group-item-action py-2 ripple"
+                          >
+                            <i class="fas fas-fw me-1 fa-file-signature"></i>
+                            <span>Contratos Funeraria</span>
                           </a>
                         )}
                         {permisos.substring(2, 3) === "1" && (
                           <a
-                            href="/tipocontratos"
+                            href="/tipocontratosrcv"
                             className="list-group-item list-group-item-action py-2 ripple"
                           >
                             <i class="fas fas-fw me-1 fa-clipboard-list"></i>
-                            <span>Tipos de Contratos</span>
+                            <span>Tipos Contratos RCV</span>
+                          </a>
+                        )}
+                        {permisos.substring(2, 3) === "1" && (
+                          <a
+                            href="/tipocontratosfuneraria"
+                            className="list-group-item list-group-item-action py-2 ripple"
+                          >
+                            <i class="fas fas-fw me-1 fa-clipboard-list"></i>
+                            <span>Tipos Contratos Funeraria</span>
                           </a>
                         )}
                         {/*permisos.substring(2, 3) === "1" && (
@@ -525,16 +553,17 @@ function MenuImpuestoPP(props) {
               <section>
                 <Header onCambiar={cambiar} />
               </section>
-              <AuthRoute exact path="/inicio" component={Inicio2} />
+              <AuthRoute exact path="/iniciorcv" component={Inicio2} />
+              <AuthRoute exact path="/iniciofuneraria" component={InicioFuneraria} />
               <AuthRoute
                 exact
-                path="/contratosrealizados"
+                path="/contratosrealizadosrcv"
                 component={TablaContratosRealizados}
               />
              {/* <AuthRoute exact path="/sucursales" component={TablaSursales} />*/}
               <AuthRoute
                 exact
-                path="/tipocontratos"
+                path="/tipocontratosrcv"
                 component={TablaTipoContratos}
               />
               <AuthRoute

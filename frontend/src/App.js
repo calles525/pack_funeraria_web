@@ -43,7 +43,7 @@ function App(props) {
     currSeconds++;
     /*  console.log(currSeconds); */
 
-    if (currSeconds === 180 && pathname !== "/login" && pathname !== "/") {
+    if (currSeconds === 180 && pathname !== "/") {
       setMensaje({
         mostrar: true,
         icono: "error",
@@ -52,8 +52,8 @@ function App(props) {
       });
     }
 
-    if (currSeconds === 190 && pathname !== "/login" && pathname !== "/") {
-      window.location.href = "/login";
+    if (currSeconds === 190 && pathname !== "/") {
+      window.location.href = "/";
       setMensaje({
         mostrar: false,
         icono: "",
@@ -68,7 +68,7 @@ function App(props) {
       <MensajeSiNo
         mensaje={mensaje}
         onHideSi={() => {
-          window.location.href = "/login";
+          window.location.href = "/";
         }}
         onHideNo={() => {
           setMensaje({

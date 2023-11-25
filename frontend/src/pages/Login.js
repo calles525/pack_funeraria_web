@@ -147,7 +147,7 @@ function Login(props) {
             icono: "exito",
           });
 
-          window.location.href = "/inicio";
+          window.location.href = "/iniciofuneraria";
         }
         if (response.data.res.code == 400) {
           setMensaje({
